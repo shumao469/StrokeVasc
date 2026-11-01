@@ -1,6 +1,6 @@
 {
   "schema": "StrokeVasc_public_files_v2_20261101",
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "historical_manifest": "public_files_v1.json retained unchanged",
   "scope": "Tracked public files plus explicit reviewed additions; excludes this self-referential manifest",
   "files": [
@@ -31,8 +31,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 20155,
-      "sha256": "a0b88b6901e031b6296966b2279dc66ec9a1a06f5d5e6ed536e6d8bf6020966c"
+      "bytes": 14702,
+      "sha256": "c3f0b3cda46349996f34610e4a4f003127eded3a708b9dcfb048c5f52c13200a"
     },
     {
       "path": "apps/app_core.py",
@@ -245,6 +245,16 @@
       "sha256": "b975ef2ef281cb95b9090cb25b5ad4babd73e691868cf78e2bcd404bd00fa468"
     },
     {
+      "path": "assets/readme/strokevasc-banner.svg",
+      "bytes": 8370,
+      "sha256": "4f7bdafa02d8893ac23187fd1a7eff4f3066d8d892d075db20f3fb1b85716e2f"
+    },
+    {
+      "path": "assets/readme/vessel-pointcloud-demo.svg",
+      "bytes": 322938,
+      "sha256": "72fc58b7e9e15cacd5e26d38be0fcea5c75985141877eb8f6a5f67972ff8a902"
+    },
+    {
       "path": "configs/gate_fixed_recipe_v1.json",
       "bytes": 4139,
       "sha256": "a076288251cfbfe18bfd4065f83a0ef3afc14977786ecdd63c17c1c277fefdee"
@@ -273,6 +283,11 @@
       "path": "docs/MANUSCRIPT_FIGURE_OUTLINE.md",
       "bytes": 3411,
       "sha256": "1ee87a0ae07fddfba7f5fe7b36e2108dd8609f3823363c2ea133ed5a5d540d7f"
+    },
+    {
+      "path": "docs/README_VISUALS.md",
+      "bytes": 1131,
+      "sha256": "981059234d1fcf6b859e2789c1aaac905a757815c9a0bc4ae0cce56075f5e713"
     },
     {
       "path": "docs/RELEASE_QA.md",
@@ -570,6 +585,11 @@
       "sha256": "03f034f8dca91bca2c420ab89e22ed41f5fe60ee8219b5c90d52cebd5c007e9f"
     },
     {
+      "path": "scripts/make_readme_visuals.py",
+      "bytes": 6817,
+      "sha256": "be27017d8ff3e17c206c6228fa3836ae31a6fc134723806a326cc4a14f3478bd"
+    },
+    {
       "path": "scripts/render_grouping.py",
       "bytes": 5063,
       "sha256": "208d41dfd74db1c07d2db1903137d5312bdd9a0601011e8154152156595d39b3"
@@ -739,5 +759,10 @@
       "bytes": 2037,
       "sha256": "e0fb72bfb4c04b20d346be0a3d535429c5e694ef0215d5115095678a8a7c7fda"
     }
-  ]
+  ],
+  "documentation_refresh": {
+    "date": "2026-11-02",
+    "scope": "English README and procedural documentation visuals",
+    "model_code_and_research_results": "retained unchanged"
+  }
 }

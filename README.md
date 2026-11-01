@@ -1,164 +1,80 @@
+<p align="center">
+  <img src="assets/readme/strokevasc-banner.svg" alt="StrokeVasc cerebral artery labelling toolbox with an illustrative vascular network" width="100%">
+</p>
+
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#interactive-app">Interactive app</a> ·
+  <a href="#online-deployment">Online deployment</a> ·
+  <a href="#model-inference">Model inference</a> ·
+  <a href="#repository-guide">Repository guide</a>
+</p>
+
 # StrokeVasc
 
-**StrokeVasc-Gate** is the application line: a frozen PointNet++-derived
-representation, predicted-segment pooling and saved presence classifiers.
-The package also contains the stronger raw-MRA 3D comparator, a simple fusion
-control, and explicitly named research versions. Real vessel images and point
-clouds below come from a deterministic public-data development series, not AI
-generated anatomy.
+### Geometric learning for cerebral artery labelling
 
-Research engineering release, version `0.1.0.dev0`. The name is a project label:
-it **does not mean stroke diagnosis, infarct prediction, prognosis or clinical
-safety has been validated**. This package addresses anatomical labeling of
-cerebral vessels **given an existing binary vessel foreground**.
+**StrokeVasc connects point-cloud anatomy with branch-presence evidence.** The
+toolbox combines a PointNet++-derived encoder, candidate-level feature pooling
+and regularized presence classifiers to assign anatomical identities within a
+supplied binary vessel foreground. A Streamlit explorer brings model comparisons,
+branch-level summaries and three-dimensional visual inspection into one interface.
 
-**StrokeVasc** is the manuscript and display name for this project, emphasizing
-stroke-oriented vascular identity modelling. The repository URL, the Python
-package `strokepointpp`, and saved configuration/version identifiers remain
-unchanged for reproducibility and compatibility. Earlier artifacts may retain
-the display name StrokePoint++.
+The repository is named **StrokePointPlusPlus**, and its Python package is
+`strokepointpp`. The app retains **StrokePoint++** component labels for compatibility
+with the saved configurations and model assets.
 
-The [new benchmark note](docs/benchmark_update_20261101.md) adds all six fixed
-presence policies across three models on 20 previously evaluated Lausanne DEV
-patients, plus a separate reference-ROI dense-decoder sensitivity analysis.
-Eight single-MRA source-specific LR heads and the semantic-probability mean are
-recorded as **Gate-MRA-SemProb-R1**, not a replacement for the frozen Y/Z method.
-This repair has not demonstrated an efficacy advantage over the original
-interface. All six policies, rare-branch losses, corrected/new-error point
-counts and exploratory paired intervals are retained in the
-[aggregate benchmark](results/aggregate/benchmark_20261101_v1.json).
+**Research focus:** cerebral arterial identity labelling, anatomical variation
+and reproducible vascular-image analysis.
 
-The sampled macro Dice averages GT-or-prediction nonempty classes within each
-scan: removing a false-positive-only class can increase Dice without correcting
-a point. Point-error counts are therefore reported separately. AUTO-A achieves
-patient-mean native-grid foreground Dice 0.8546 and identity macro Dice 0.6595 under
-reference-derived ROI/normalization; this is **not a GT-free automatic pipeline**
-and is not the sampled-point Dice task. The [AUTO-A aggregate](results/aggregate/auto_a_20261101_v1.json)
-and a separate **Development update** viewer tab preserve that distinction.
-Original application results, protected cohorts and scientific STOP decisions
-remain unchanged. No new clinical safety or NC/NMI mechanism claim is made.
-Reviewed aggregate illustrations are provided as editable SVG and PNG:
-[Supplementary Fig. 7](figures/benchmark_update_20261101/StrokeVasc_SupplementaryFigure_7_20261101.svg),
-[Supplementary Fig. 8](figures/benchmark_update_20261101/StrokeVasc_SupplementaryFigure_8_20261101.svg),
-with [panel-ordered aggregate source data](source_data/figures_20261101).
+## Why use StrokeVasc
 
-| Version name | What it contains | Interpretation |
-| --- | --- | --- |
-| Gate-AppYZ-v1 | Original paired CTA/MRA application | Historical sealed application, not overwritten |
-| Gate-MRA-R0v2 | Rebuilt fixed-recipe heads, single MRA | Separately labeled external-transfer reproduction |
-| Gate-MRA-SemProb-R1 | Per-source single-MRA LR heads, probability-coordinate mean | Reviewed development repair; original method retained |
-| StrokePoint-3D | Raw-MRA 3D comparator | Higher observed external point Dice, short pilot |
-| StrokePoint-Fuse | Simple image/point feature concatenation | Matched-input comparator, no superiority claim |
-| Research archive | Joint/presence-feedback and earlier implementations | Versioned exploration, negative findings retained |
+| Capability | What it enables |
+| --- | --- |
+| **Multiscale geometric representation** | Connect local vessel shape with the wider arterial configuration using a PointNet++-derived encoder. |
+| **Branch-aware anatomical naming** | Aggregate candidate evidence for posterior communicating arteries and the accessory third-A2 branch, then condition the eligible point labels. |
+| **Modular model interfaces** | Work with the geometric route, a volumetric image model and simple image–point fusion through documented input and output contracts. |
+| **Interactive exploration** | Browse cohort-specific summaries, compare fixed methods and inspect branch support in a lightweight Streamlit app. |
+| **Traceable evaluation** | Examine overlap alongside absent-class false positives, rare-branch retention and corrected/newly incorrect point counts. |
+| **Reproducible engineering** | Use versioned configurations, asset hashes, explicit input schemas and data-independent tests. |
 
-## What you can operate
+<p align="center">
+  <img src="assets/readme/vessel-pointcloud-demo.svg" alt="Procedural vessel foreground and coloured anatomical point representation" width="100%">
+</p>
 
-1. **Inspect evidence and versions**: list Gate-AppYZ-v1, Gate-MRA-R0v2,
-   StrokePoint-3D and StrokePoint-Fuse, check source/model hashes, and inspect
-   reviewed external aggregate results without opening subject data.
-2. **Run a parameterized model interface**: bind your separately authorized
-   weights and saved scalers by SHA256, supply the documented label-free NPZ
-   arrays, and produce anatomical point labels. Missing weights fail clearly;
-   this package never fills them with random states or starts fitting.
-3. **Explore actual vessels and point clouds**: view the MRA/surface/point-cloud
-   examples, compare the fixed model outputs, and optionally visualize a local
-   uploaded NPZ in server memory. This last feature is off by default and does
-   not infer anatomy, diagnose stroke or save the uploaded file.
-4. **Rebuild publication artwork**: reproduce five main figures, four Extended
-   Data figures and three supplementary figures from locked aggregate source
-   tables and attributed real-data renderings. SVG text, equations and plot axes
-   remain editable; true image/3D renderings are raster layers.
+*Purpose-built documentation illustrations show procedural vascular geometry
+and example labels. [Visual provenance and regeneration](docs/README_VISUALS.md).*
 
-## Interactive viewer / Streamlit
+## How the method works
 
-The app is a **CPU-only results viewer**, not a prediction endpoint. It needs
-no dataset, model weights, GPU, API key or account login to run locally.
-The owner approved this public repository on 2026-10-28; no Streamlit Cloud
-deployment was requested or performed.
+1. **Prepare the geometry.** Start with a vessel foreground and spatially aligned
+   coordinates. The documented point route uses 2,048 sampled locations per scan.
+2. **Encode anatomical context.** Extract local and multiscale features using the
+   fixed PointNet++-derived encoder and the corresponding geometric descriptors.
+3. **Pool candidate evidence.** Summarize predicted class candidates through mean
+   and maximum feature pooling to form 256-dimensional representations.
+4. **Estimate branch presence.** Apply the saved standardizers and logistic heads
+   to obtain Pcom and third-A2 presence probabilities.
+5. **Condition and inspect labels.** Use the fixed presence policy to determine
+   eligible anatomical names, then inspect point labels and branch-level outputs.
 
-Clone the repository first:
+Named vascular geometry can provide inputs for studies of circle-of-Willis
+variation, branch-specific measurements and anatomy-linked physiological models.
+Stroke-oriented digital twins and collateral-circulation studies are potential
+downstream research applications with their own validation requirements.
+
+## Quick start
+
+### 1. Get the repository
 
 ```bash
 git clone https://github.com/shumao469/StrokePointPlusPlus.git
 cd StrokePointPlusPlus
 ```
 
-Windows PowerShell：
+### 2. Inspect the package
 
-```powershell
-py -3.10 -m venv .venv-app
-.\.venv-app\Scripts\python.exe -m pip install -r requirements-app.txt
-.\.venv-app\Scripts\python.exe -m streamlit run apps/streamlit_app.py --server.address 127.0.0.1 --server.port 8851 --browser.gatherUsageStats false
-```
-
-Linux / WSL：
-
-```bash
-python3 -m venv .venv-app
-.venv-app/bin/python -m pip install -r requirements-app.txt
-.venv-app/bin/python -m streamlit run apps/streamlit_app.py --server.address 127.0.0.1 --server.port 8851 --browser.gatherUsageStats false
-```
-
-Open **http://127.0.0.1:8851/** after startup. Stop your foreground app with
-`Ctrl+C`. If the port is occupied, choose another port (for example `--server.port
-8852`) without stopping unrelated research services. Missing figures or aggregate
-files should be repaired from the repository, not replaced by invented results.
-
-The viewer was tested with Python 3.10; other Python environments require their
-own dependency/tests check. For optional future Cloud deployment, see the
-platform's current supported Python versions in [DEPLOYMENT.md](DEPLOYMENT.md).
-
-The local URL is `http://127.0.0.1:8851/` while that process is running. On the
-construction workstation, `deployment/start_local.ps1` manages the separate
-environment and records the actual launch receipt. See [deployment instructions](DEPLOYMENT.md)
-for Streamlit Community Cloud. A `.streamlit.app` URL exists only after an
-authorized repository and Cloud deployment succeed; no public deployment is
-claimed by including these instructions. No raw subject data or weights should
-be placed in a public repository.
-
-Viewer pages expose cohort-specific reviewed metrics, confidence intervals,
-rare-branch support and the figure gallery. They keep Lausanne DEV and IXI-HH
-FINAL separate. Clinical use and automated retraining are disabled.
-
-```bash
-python -m pip install -r requirements-figures.txt
-python scripts/make_publication_figures.py
-```
-
-The real-data rendering scripts require separately authorized, locally bound
-development data and private configuration; the default figure builder uses
-only the already rendered public illustrations and aggregate source tables.
-It never opens the protected 65-patient raw data, fits a model or tunes FINAL.
-If Arial is available outside the package, optionally set `STROKEPOINT_FONT_DIR`
-to that authorized font directory before rebuilding; otherwise DejaVu Sans is
-used. No proprietary font is bundled.
-
-## Functions
-
-- `Gate-AppYZ-v1`: sealed historical application with paired CTA/MRA inputs.
-  In its internal cohort, native-absence FPR decreased approximately
-  `0.125651 -> 0.070964` (43.52% relative reduction, not55%). Dice has65 patient
-  units; absence FPR has64 valid patient units. This is not independent external
-  validation. Non-significant rare-branch changes do not establish noninferiority
-  or safety; some earlier rare-branch sample counts were scans, not patients.
-- `Gate-MRA-R0v2`: newly reconstructed fixed-recipe LR/scaler heads, deployed
-  using **one MRA** and the fixed four-source latent average. It is not recovered
-  original fitted state and not input-equivalent to paired CTA/MRA-max inference.
-- `StrokePoint-3D`: enhanced3D U-Net comparator (official DNA architecture,
-  local physical patches, coordinates and point readout), a short2000-update
-  pilot.
-  One inner training fold had no native third-A2 positives; keeping13 outputs
-  does not create missing rare-class training support.
-- `StrokePoint-Fuse`: simple image/PointNet++ concatenation comparator.
-  Joint FiLM/presence-feedback variants remain research/negative-result records;
-  they are not presented as a successful new mechanism.
-- Lausanne20 is externalDEV; IXI-HH20 is a model/source-record-qualified fixed
-  externalFINAL cohort in the current study, not proof of globally never-used
-  data. 
-
-## Installation
-
-Python3.10 or later. Metadata commands use only the standard library:
+The metadata CLI uses Python 3.10 or later and the Python standard library.
 
 ```bash
 python -m pip install -e .
@@ -167,189 +83,211 @@ python -m strokepointpp summary
 python -m strokepointpp verify
 ```
 
-For inference/synthetic tests, install the optional dependencies in a separate
-environment. Install the appropriate official PyTorch CPU/CUDA build for your
-machine first; this bundle does not modify drivers or CUDA installation.
+`inspect` describes the packaged release, `summary` prints its aggregate evidence
+record, and `verify` checks files against the active SHA256 manifest. Detailed
+research records and version-specific definitions accompany these commands.
+
+## Interactive app
+
+The **Streamlit research explorer** runs on the CPU using the packaged aggregate
+tables and presentation assets. This route is convenient for browsing the
+project before preparing a model-inference environment.
+
+### Windows PowerShell
+
+```powershell
+py -3.12 -m venv .venv-app
+./.venv-app/Scripts/python.exe -m pip install -r requirements-app.txt
+./.venv-app/Scripts/python.exe -m streamlit run apps/streamlit_app.py --server.address 127.0.0.1 --server.port 8851 --browser.gatherUsageStats false
+```
+
+### Linux or WSL
+
+```bash
+python3.12 -m venv .venv-app
+.venv-app/bin/python -m pip install -r requirements-app.txt
+.venv-app/bin/python -m streamlit run apps/streamlit_app.py --server.address 127.0.0.1 --server.port 8851 --browser.gatherUsageStats false
+```
+
+Open **[http://127.0.0.1:8851/](http://127.0.0.1:8851/)** after the server starts.
+The address serves the app on the hosting computer. Choose another port, such
+as `8852`, when running a second local instance.
+
+### Explore the interface
+
+| App area | Available interaction |
+| --- | --- |
+| **Reviewed results** | Select a cohort and compare fixed methods, intervals and point-change summaries. |
+| **Rare branches** | Inspect branch-specific recall, presence support and absent-class false positives. |
+| **Figures & cases** | Browse the illustration assets packaged with the selected release. |
+| **Local points** | Visualize an operator-enabled, authorized local NPZ point cloud with optional supplied labels. |
+| **Development update** | Explore separately versioned model/policy comparisons and dense-grid summaries. |
+| **Limitations** | Read the study scope, endpoint definitions and validation context. |
+
+The optional local viewer accepts `xyz` or `points` with shape `N x 3` and optional
+integer `labels` with shape `N`. Its local-session setup, privacy controls and
+8 MiB input budget are described in [DEPLOYMENT.md](DEPLOYMENT.md#optional-opt-in-local-npz-viewer).
+The Streamlit explorer presents results and visualizations; model execution uses
+the separate inference interface below.
+
+## Online deployment
+
+### Streamlit Community Cloud
+
+Deploy your own viewer from this repository through
+**[Streamlit Community Cloud](https://share.streamlit.io/)**:
+
+| Deployment setting | Value |
+| --- | --- |
+| Repository | `shumao469/StrokePointPlusPlus` |
+| Branch | `main` |
+| Main file path | `apps/streamlit_app.py` |
+| Python version | `3.12` |
+| Dependency entry | `apps/requirements.txt`, which includes `requirements-app.txt` |
+| Public app content | Reviewed aggregate tables, approved presentation assets and application code |
+
+Connect GitHub, choose **Create app**, enter the settings above and select the
+Python version under **Advanced settings**. After successful deployment,
+Streamlit supplies the app's shareable `.streamlit.app` address. The repository
+provides the deployment configuration; Community Cloud creates the hosted URL
+for your deployment.
+
+For public hosting, use the packaged viewer configuration with local uploads
+disabled. Keep research data and authorized model assets in the appropriate
+private environment. See the [official deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy)
+and the [project deployment reference](DEPLOYMENT.md).
+
+## Model inference
+
+Inference uses **prepared NPZ inputs** together with explicitly bound model
+assets. Create a separate environment, install the appropriate official PyTorch
+build for your CPU/CUDA setup, then install the inference extras:
 
 ```bash
 python -m pip install -e ".[inference]"
-python -m unittest discover -s tests -v
 ```
 
-The historical release recorded Python3.10, PyTorch2.9.1+cu128,
-dynamic-network-architectures0.4.2, nnU-Net2.6.2 and scikit-learn1.7.2.
-The precise recorded versions/configurations are retained in
-`configs/spatial_fixed_pilot_v1.json`. nnU-Net is contextual provenance; the
-adapter uses DNA's `PlainConvUNet`, not the entire nnU-Net training pipeline.
-Newer software/device combinations require separate numerical validation.
-The separately reviewed 1 November interface rebuild used Python3.12.13 and
-PyTorch2.11.0+cu128; its fixed precision policy and source-replay checks are
-described in the [development update](docs/benchmark_update_20261101.md).
+Use [the asset-map example](configs/model_assets.local.example.json) to create
+your own `model_assets.local.json`. Each logical asset ID maps to its authorized
+local file; SHA256 checks bind the numerical state to the saved configuration.
 
-### Library roles / 依赖库用途
+```bash
+python -m strokepointpp verify --assets model_assets.local.json
 
-| Library | Role | Needed for |
+python -m strokepointpp infer --method gate --assets model_assets.local.json --input prepared_gate.npz --output gate_prediction.npz --device cpu
+
+python -m strokepointpp infer --method 3d --assets model_assets.local.json --input prepared_spatial.npz --output three_d_prediction.npz --device cuda:0 --fold 0
+
+python -m strokepointpp infer --method fuse --assets model_assets.local.json --input prepared_spatial.npz --output fusion_prediction.npz --device cuda:0 --fold 0
+```
+
+| Route | Main components | Role |
 | --- | --- | --- |
-| Python standard library | CLI, JSON manifests, SHA256 and allowlisted packaging | Basic inspection and verification |
-| PyTorch | Frozen PointNet++ / 3D model numerical operations | Optional explicit inference |
-| dynamic-network-architectures | `PlainConvUNet` implementation | Strong-3D / fusion adapter |
-| NumPy, SciPy | Array geometry, interpolation and numerical statistics | Inference and figure building |
-| scikit-learn | Archived LR, scaling and DBSCAN provenance | Research reproduction, no default refitting |
-| nibabel | Authorized NIfTI orientation and spatial coordinates | Separate data preparation / rendering |
-| Streamlit, Plotly | CPU-only aggregate and 3D-point viewer | Local app or separately approved Cloud deployment |
-| Matplotlib, PyMuPDF | Editable scientific artwork and PDF assembly | Figure reproduction |
-| PyVista / VTK, scikit-image | Real point-cloud/surface rendering | Optional local real-case illustration scripts |
+| **StrokeVasc Gate** | Fixed PointNet++-derived features, candidate pooling and two presence heads | Geometry-based identity and branch-presence conditioning |
+| **Strong3D** | 3D U-Net architecture, physical image patches and point readout | Volumetric image comparator |
+| **Simple concatenation** | Image features combined with point-encoder features | Image–point fusion comparator |
+| **Semantic-probability interface** | Source-specific heads and probability aggregation | Separately versioned research interface described in the [benchmark note](docs/benchmark_update_20261101.md) |
 
-Keep the application, inference and figure environments separate. The viewer
-does not require PyTorch or CUDA and does not occupy the training GPUs.
+The Gate command uses its four fixed encoder sources. Spatial `--fold 0` selects
+one locked checkpoint; the protocol-level two-fold comparison averages the
+corresponding models' logits. Returned scores describe anatomical identities and
+branch presence, with event-risk calibration treated as a separate endpoint.
 
-## Components and package boundary
+### Prepared inputs
 
-```text
-strokepointpp/              installable metadata CLI and new engineering adapters
-strokepointpp/_frozen/      original algorithm functions, import namespaces adapted
-archive/algorithms/        selected sources, with documented privacy adaptations
-configs/                   fixed settings and local asset mapping example
-results/aggregate/         independently reviewed aggregate statistics only
-manifests/                 source hashes, dependency/import audit, public file hashes
-tests/                     synthetic/data-independent tests
-scripts/build_release.py   allowlisted reproducible ZIP builder
-```
-
-The local construction folder also contains `private_archive/source/`: exact
-path-bound historical runners and their import closure. It is deliberately
-**excluded from the public ZIP**, because those scripts embed investigator-local
-paths. No original patient images, labels, per-patient predictions, caches or
-fitted model weights/scalers are distributed. Public source adaptations do not
-silently alter frozen numerical algorithms. The two public reconstruction helper
-copies replace the historical training-source ID list with an ordered-list
-SHA256 commitment. They preserve the same private-binding check and do not
-change model arithmetic. Original unredacted scripts stay local, not on GitHub.
-Import and privacy transformation records are in
-`manifests/import_adaptations_v1.json` and
-`manifests/privacy_transformations_v1.json`.
-
-## Assets and explicit inference
-
-Obtain model assets from the project owner through an approved channel. Data
-permissions do not automatically grant model redistribution rights. The bundle
-provides SHA256 and logical IDs, not download URLs, private paths or weights.
-Copy `configs/model_assets.local.example.json` outside the bundle and replace
-each placeholder with your authorized local asset path; all mapped assets are
-checked against the fixed manifest before deserialization.
-
-```bash
-python -m strokepointpp verify --assets my_assets.json
-python -m strokepointpp infer --method gate --assets my_assets.json --input visible_gate.npz --output gate_prediction.npz --device cpu
-python -m strokepointpp infer --method 3d --assets my_assets.json --input visible_spatial.npz --output three_d_prediction.npz --device cuda:0 --fold 0
-python -m strokepointpp infer --method fuse --assets my_assets.json --input visible_spatial.npz --output fusion_prediction.npz --device cuda:0 --fold 0
-```
-
-Inference deliberately fails on missing assets, wrong SHA, unexpected keys or an
-existing output. It never substitutes random weights, downloads data, fits heads,
-searches thresholds or executes training automatically. Individual spatial-fold
-commands are single-model research outputs; the archived external comparison
-averaged both locked folds' logits, so a single-fold command is not its exact
-replication. Gate uses all four fixed fold/seed sources.
-
-## Prepared visible input contracts
-
-The adapter consumes caller-prepared **label-free NPZ**, not arbitrary NIfTI.
-The preparation/training/evaluator source is locally archived for audit; a
-turnkey raw-image clinical pipeline has not been validated by this release.
-
-Gate input requires exactly these14 keys:
+The full Gate input contract contains fourteen arrays:
 
 ```text
-xyz float32[2048,3]               centered physical world coordinates /100
-s1 int64[128], s2 int64[32]       original coordinate-only FPS
-g1 int64[128,32], g2 int64[32,32]
-i21 int64[128,3], w21 float32[128,3]
-i10 int64[2048,3], w10 float32[2048,3]
-native_gd float[32,128]          physical foreground-graph path distances; +inf allowed
-path_features float32[32,128,2]  stack(where(finite,gd/120,1),finite_bit)
-euclidean_ids int64[32,K], euclidean_mask bool[32,K], euclidean_active bool[32]
+xyz                  float32[2048,3]   centred physical coordinates / 100 mm
+s1, s2               int64[128], int64[32]
+g1, g2               int64[128,32], int64[32,32]
+i21, w21             int64[128,3], float32[128,3]
+i10, w10             int64[2048,3], float32[2048,3]
+native_gd            float[32,128]     physical foreground-path distances
+path_features        float32[32,128,2]
+euclidean_ids        int64[32,K]
+euclidean_mask       bool[32,K]
+euclidean_active     bool[32]
 ```
 
-The frozen legacy route overrides i21/w21 using the three smallest finite native
-path distances, deterministic index ties and inverse-distance weights. This is
-not silently replaced by a new Euclidean interpolation or learned topology.
-The four independently trained sources' hidden coordinates were not aligned;
-their historical averaging is preserved, not claimed to be semantically aligned
-or newly validated by this software packaging step.
-Geometry, foreground and point order must be produced under a prospectively
-bound protocol, never chosen using true anatomical identities or known errors.
-Manual foreground/ROI, when used, is disclosed as a conditional input, not
-automatic segmentation. No targets such as `y` or native class presence are
-accepted by the Gate input contract.
+The spatial contract uses the eight geometry arrays `s1/s2/g1/g2/i21/w21/i10/w10`
+together with `volume_CDHW[1,96,96,96]`, `local_NCDHW[2048,1,5,5,5]`,
+`point_grid_XYZ[2048,3]` and `point_xyz[2048,3]`. Volume axes are K/J/I; grid
+coordinates are I/J/K in `[-1,1]` with `align_corners=True`. The local physical
+offsets are `[-1.2,-0.6,0,0.6,1.2]` mm.
 
-Spatial input requires `volume_CDHW float32[1,96,96,96]`,
-`local_NCDHW float32[2048,1,5,5,5]`, `point_grid_XYZ float32[2048,3]`,
-`point_xyz float32[2048,3]`, and the eight SSG geometry keys s1/s2/g1/g2/
-i21/w21/i10/w10. Volume axes are K,J,I; grid order is I,J,K normalized[-1,1],
-align_corners=True. Local offsets are[-1.2,-0.6,0,0.6,1.2]mm, not native voxels.
-The archived protocol uses foreground-bbox+5mm and that scan's foreground
-intensity mean/std. Incorrect orientation, units or foreground sampling can
-invalidate predictions even if array shapes match.
+Use the coordinate, foreground, sampling and interpolation definitions in the
+saved configurations. The fixed Gate path encoding uses the finite-distance bit
+and `gd / 120`, with a value of `1` for its unreachable-distance feature. The
+saved route builds coarse-to-fine interpolation from the three smallest finite
+native path distances, deterministic index ties and inverse-distance weights.
 
-CPU Gate arithmetic is float32 feature extraction plus fixed NumPy/LR rules.
-Spatial CUDA inference uses BF16 autocast with explicit FP32-sensitive kernels,
-TF32 off. CPU/CUDA exact-label replay is not automatically certified here.
-Returned gated probabilities are class-blocked diagnostic renormalizations,
-**not validated event-risk probabilities**. Blocking reassigns labels; it is
-not a true “unknown” state.
+## Repository guide
 
-## Evaluation, reproduction and limitations
+```text
+apps/                   Streamlit explorer and viewer tests
+strokepointpp/          Installable CLI and model interfaces
+strokepointpp/_frozen/  Preserved numerical implementations
+configs/                Fixed recipes and the local asset-map example
+results/aggregate/      Versioned cohort and benchmark summaries
+source_data/            Aggregate source tables and figure-to-data mappings
+manifests/              File hashes, asset provenance and import records
+assets/readme/          Purpose-built procedural README illustrations
+archive/algorithms/     Named research implementations and variants
+deployment/             Local startup helpers
+docs/                   Technical, benchmark and deployment references
+tests/                  Data-independent numerical and interface tests
+```
 
-Original evaluation distinguishes sampled point Dice, complete-native-mask
-absence FPR, candidate identity, corrected/new error points, patient-any-error
-risk and rare-branch TP loss. Units and denominators must remain separate.
-Patient-level bootstrap uncertainty is retained; zero errors or a CI crossing
-zero does not establish a10% risk bound or noninferiority.
+### Library guide
 
-The package includes executable numerical components and provenance, not the
-datasets or authorization to reopen protected data. Reproducing full training
-needs authorized original data, original split/source bindings, sufficient
-compute, target quarantine and new engineering verification. Historical Gate
-and spatial branches used different training sources/counts; their external
-comparison is not an isolated, training-budget-matched architecture ablation.
-Do not use the protected65 cohort or closed FINAL cohort for model selection,
-preprocessing tuning, risk calibration or threshold search.
+| Library | Purpose | Environment |
+| --- | --- | --- |
+| Python standard library | CLI, manifests and SHA256 verification | Core package |
+| Streamlit and Plotly | Interactive dashboard and 3D visualization | App |
+| NumPy and SciPy | Arrays, geometry, interpolation and numerical summaries | App / inference |
+| PyTorch | Point and volumetric encoders | Inference |
+| dynamic-network-architectures | `PlainConvUNet` architecture | Spatial inference |
+| scikit-learn | Standardization and logistic presence classifiers | Inference / research reproduction |
+| NiBabel | NIfTI geometry and physical-coordinate handling | Data preparation / inference |
+
+App dependencies are pinned in [requirements-app.txt](requirements-app.txt).
+Inference extras are defined in [pyproject.toml](pyproject.toml), and the saved
+spatial recipe is in [configs/spatial_fixed_pilot_v1.json](configs/spatial_fixed_pilot_v1.json).
+Separate app and inference environments keep their computational requirements clear.
+
+## Tests and reproducibility
 
 ```bash
-python scripts/build_release.py --source-workspace YOUR_AUTHORIZED_STUDY_WORKSPACE
+# Viewer and input-validation tests in the app environment
+python -m unittest discover -s apps/tests -v
+
+# Numerical/interface tests in the inference environment
+python -m unittest discover -s tests -v
+
+# Rebuild the procedural documentation graphics
+python scripts/make_readme_visuals.py
 ```
 
-The builder copies only an explicit code/metadata allowlist, preserves local
-private originals, checks reviewed-statistics hashes and creates a deterministic
-content ZIP with fixed member timestamps. It never executes study scripts,
-loads patient arrays/model weights, trains or sends messages.
+Evaluation records retain cohort roles, class support, participant/scan units and
+paired intervals. Read output-dependent macro-Dice together with point accuracy,
+corrected/newly incorrect points and rare-branch retention. The [benchmark reference](docs/benchmark_update_20261101.md)
+explains the fixed comparison recipes and their statistical interpretation.
 
-## Licenses, citations and publication
+## Data sources citation and reuse
 
-See `LICENSE_NOTICE.md`: repository publication is owner-approved, but no
-MIT/Apache or other open-source code license has been selected. Public visibility
-is not a blanket reuse license. Third-party packages retain their upstream
-licenses.
+- **TopCoW:** [annotated dataset and external packages](https://zenodo.org/records/15692630).
+- **Lausanne:** [OpenNeuro ds003949](https://openneuro.org/datasets/ds003949).
+- **IXI:** [official dataset](https://brain-development.org/ixi-dataset/).
+- **UNC/THU:** [cerebral MRA resource](https://ivg.au.tsinghua.edu.cn/dataset/Cerebral-MRA/Cerebral-MRA.html).
+- **PointNet++:** Qi et al., *Deep Hierarchical Feature Learning on Point Sets in a Metric Space*, NeurIPS 2017.
+- **TopCoW benchmark:** Yang et al., *TopCoW Challenge—Topology-Aware Circle of Willis Segmentation for CT and MR Angiography*, NEJM AI (2026). [Article](https://doi.org/10.1056/AIdbp2500994).
 
-- TopCoW release: https://zenodo.org/records/15692630 — cite the TopCoW paper
-  requested by the organizers and applicable source datasets.
-- Lausanne original images: CC0; derived annotations are separately provided
-  under the organizer-confirmed TopCoW/OpenData Swiss terms.
-- IXI-HH original images: CC BY-SA3.0; comply with its attribution/ShareAlike
-  conditions. Derived annotations are under the organizer-confirmed terms.
-- Creator-provided annotation clarification permits noncommercial method
-  development/training/evaluation and aggregate publication with source citation;
-  commercial permission and image/model redistribution questions remain separate.
-- PointNet++ method: Qi et al., “PointNet++: Deep Hierarchical Feature Learning
-  on Point Sets in a Metric Space”, NeurIPS2017.
-- Visual narrative reference, not an implemented OT module: Dai et al.,
-  “3d-OT: a deep geometry-aware framework for heterogeneous slices alignment
-  of spatial multi-omics”, Nature Methods23,760-771(2026),
-  https://doi.org/10.1038/s41592-026-03034-9 .
-- TopCoW benchmark: Yang et al., “TopCoW Challenge—Topology-Aware Circle of
-  Willis Segmentation for CT and MR Angiography”, NEJM AI3(8),AIdbp2500994(2026),
-  https://doi.org/10.1056/AIdbp2500994 .
-- Official3D implementation: https://github.com/MIC-DKFZ/dynamic-network-architectures
-  and https://github.com/MIC-DKFZ/nnUNet .
+Follow each source's image and annotation terms and cite the corresponding data
+creators. Code-reuse permissions are described in [LICENSE_NOTICE.md](LICENSE_NOTICE.md);
+contact the project owner to arrange the applicable license. Dependencies retain
+their upstream licenses, and model/data access follows the respective authorization.
+
+Questions and reproducibility reports are welcome through
+[GitHub Issues](https://github.com/shumao469/StrokePointPlusPlus/issues).
 
