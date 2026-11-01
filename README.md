@@ -1,7 +1,5 @@
 # StrokeVasc
 
-[GitHub repository](https://github.com/shumao469/StrokePointPlusPlus)
-
 **StrokeVasc-Gate** is the application line: a frozen PointNet++-derived
 representation, predicted-segment pooling and saved presence classifiers.
 The package also contains the stronger raw-MRA 3D comparator, a simple fusion
@@ -19,8 +17,6 @@ stroke-oriented vascular identity modelling. The repository URL, the Python
 package `strokepointpp`, and saved configuration/version identifiers remain
 unchanged for reproducibility and compatibility. Earlier artifacts may retain
 the display name StrokePoint++.
-
-### Reviewed development update — 1 November 2026
 
 The [new benchmark note](docs/benchmark_update_20261101.md) adds all six fixed
 presence policies across three models on 20 previously evaluated Lausanne DEV
