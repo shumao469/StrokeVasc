@@ -20,10 +20,37 @@ package `strokepointpp`, and saved configuration/version identifiers remain
 unchanged for reproducibility and compatibility. Earlier artifacts may retain
 the display name StrokePoint++.
 
+### Reviewed development update — 1 November 2026
+
+The [new benchmark note](docs/benchmark_update_20261101.md) adds all six fixed
+presence policies across three models on 20 previously evaluated Lausanne DEV
+patients, plus a separate reference-ROI dense-decoder sensitivity analysis.
+Eight single-MRA source-specific LR heads and the semantic-probability mean are
+recorded as **Gate-MRA-SemProb-R1**, not a replacement for the frozen Y/Z method.
+This repair has not demonstrated an efficacy advantage over the original
+interface. All six policies, rare-branch losses, corrected/new-error point
+counts and exploratory paired intervals are retained in the
+[aggregate benchmark](results/aggregate/benchmark_20261101_v1.json).
+
+The sampled macro Dice averages GT-or-prediction nonempty classes within each
+scan: removing a false-positive-only class can increase Dice without correcting
+a point. Point-error counts are therefore reported separately. AUTO-A achieves
+patient-mean native-grid foreground Dice 0.8546 and identity macro Dice 0.6595 under
+reference-derived ROI/normalization; this is **not a GT-free automatic pipeline**
+and is not the sampled-point Dice task. The [AUTO-A aggregate](results/aggregate/auto_a_20261101_v1.json)
+and a separate **Development update** viewer tab preserve that distinction.
+Original application results, protected cohorts and scientific STOP decisions
+remain unchanged. No new clinical safety or NC/NMI mechanism claim is made.
+Reviewed aggregate illustrations are provided as editable SVG and PNG:
+[Supplementary Fig. 7](figures/benchmark_update_20261101/StrokeVasc_SupplementaryFigure_7_20261101.svg),
+[Supplementary Fig. 8](figures/benchmark_update_20261101/StrokeVasc_SupplementaryFigure_8_20261101.svg),
+with [panel-ordered aggregate source data](source_data/figures_20261101).
+
 | Version name | What it contains | Interpretation |
 | --- | --- | --- |
 | Gate-AppYZ-v1 | Original paired CTA/MRA application | Historical sealed application, not overwritten |
 | Gate-MRA-R0v2 | Rebuilt fixed-recipe heads, single MRA | Separately labeled external-transfer reproduction |
+| Gate-MRA-SemProb-R1 | Per-source single-MRA LR heads, probability-coordinate mean | Reviewed development repair; original method retained |
 | StrokePoint-3D | Raw-MRA 3D comparator | Higher observed external point Dice, short pilot |
 | StrokePoint-Fuse | Simple image/point feature concatenation | Matched-input comparator, no superiority claim |
 | Research archive | Joint/presence-feedback and earlier implementations | Versioned exploration, negative findings retained |
@@ -153,12 +180,15 @@ python -m pip install -e ".[inference]"
 python -m unittest discover -s tests -v
 ```
 
-The study used Python3.10, PyTorch2.9.1+cu128,
+The historical release recorded Python3.10, PyTorch2.9.1+cu128,
 dynamic-network-architectures0.4.2, nnU-Net2.6.2 and scikit-learn1.7.2.
 The precise recorded versions/configurations are retained in
 `configs/spatial_fixed_pilot_v1.json`. nnU-Net is contextual provenance; the
 adapter uses DNA's `PlainConvUNet`, not the entire nnU-Net training pipeline.
 Newer software/device combinations require separate numerical validation.
+The separately reviewed 1 November interface rebuild used Python3.12.13 and
+PyTorch2.11.0+cu128; its fixed precision policy and source-replay checks are
+described in the [development update](docs/benchmark_update_20261101.md).
 
 ### Library roles / 依赖库用途
 

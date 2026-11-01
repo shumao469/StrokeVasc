@@ -1,0 +1,19 @@
+"cohort","model","policy","corrected_points","new_error_points","rare_TP_lost","n"
+"Lausanne repeated DEV","BASE3D","NONE",0,0,0,20
+"Lausanne repeated DEV","CONCAT","NONE",0,0,0,20
+"Lausanne repeated DEV","YZ","NONE",0,0,0,20
+"Lausanne repeated DEV","BASE3D","COUNT8",5,0,0,20
+"Lausanne repeated DEV","CONCAT","COUNT8",6,6,6,20
+"Lausanne repeated DEV","YZ","COUNT8",1,0,0,20
+"Lausanne repeated DEV","BASE3D","OLD_YZ_HARD0.05",7,6,6,20
+"Lausanne repeated DEV","CONCAT","OLD_YZ_HARD0.05",14,6,6,20
+"Lausanne repeated DEV","YZ","OLD_YZ_HARD0.05",22,0,0,20
+"Lausanne repeated DEV","BASE3D","OLD_YZ_SOFT0.25",5,0,0,20
+"Lausanne repeated DEV","CONCAT","OLD_YZ_SOFT0.25",13,1,1,20
+"Lausanne repeated DEV","YZ","OLD_YZ_SOFT0.25",4,1,1,20
+"Lausanne repeated DEV","BASE3D","NEW_MRA_LATE_HARD0.05",0,0,0,20
+"Lausanne repeated DEV","CONCAT","NEW_MRA_LATE_HARD0.05",2,0,0,20
+"Lausanne repeated DEV","YZ","NEW_MRA_LATE_HARD0.05",0,0,0,20
+"Lausanne repeated DEV","BASE3D","NEW_MRA_LATE_SOFT0.25",2,1,1,20
+"Lausanne repeated DEV","CONCAT","NEW_MRA_LATE_SOFT0.25",5,1,1,20
+"Lausanne repeated DEV","YZ","NEW_MRA_LATE_SOFT0.25",4,5,5,20

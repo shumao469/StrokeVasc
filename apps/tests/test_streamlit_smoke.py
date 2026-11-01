@@ -16,7 +16,10 @@ class StreamlitSmokeTests(unittest.TestCase):
             app=AppTest.from_file(str(APP)).run(timeout=40)
             self.assertEqual(len(app.exception),0)
             self.assertEqual(app.title[0].value,"StrokePoint++")
-            self.assertEqual(len(app.tabs),5)
+            self.assertEqual(len(app.tabs),6)
+            self.assertEqual(app.tabs[4].label,"Development update")
+            self.assertTrue(any("Reviewed development update" in item.value for item in app.markdown))
+            self.assertTrue(any("0.8546" in item.value for item in app.metric))
             self.assertEqual(len(app.get("file_uploader")),0)
             # If real reviewed aggregates are packaged, exercise the second
             # cohort without reading any original project artifact or labels.

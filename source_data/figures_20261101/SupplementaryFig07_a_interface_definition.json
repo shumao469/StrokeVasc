@@ -1,0 +1,17 @@
+{
+  "cohort": "Lausanne repeated DEV",
+  "development_fit_patients": 48,
+  "DEV_patients": 20,
+  "source_encoders": 4,
+  "binary_heads": 8,
+  "head_targets": [
+    "Pcom(8 OR 9)",
+    "third-A2(15)"
+  ],
+  "input": "single MRA",
+  "fusion": "arithmetic mean of four per-encoder semantic probabilities",
+  "head_fit": "own-fold FIT24; fixed C=1 L2 LR; not OOF",
+  "backbone_updates": 0,
+  "hard_threshold": 0.05,
+  "soft_strength": 0.25
+}

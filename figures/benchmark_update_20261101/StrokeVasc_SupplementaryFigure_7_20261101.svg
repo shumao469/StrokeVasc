@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180mm" height="270mm" viewBox="0 0 680.3333333333334 1020.4666666666667"><rect width="100%" height="100%" fill="white"/><text x="24" y="37.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">a</text>
+<text x="47" y="36.102000000000004" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Single-MRA semantic probability interface</text>
+<text x="24" y="64.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#617082" font-weight="400" text-anchor="start">Development ablation: 48 original FIT patients and 20 exposed Lausanne DEV patients</text>
+<rect x="26" y="98" width="92" height="46" fill="#FFFFFF" stroke="#8994A2" stroke-width="0.8"/>
+<text x="72" y="124.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#8994A2" font-weight="700" text-anchor="middle">MRA points</text>
+<rect x="143" y="82" width="148" height="25" fill="#FFFFFF" stroke="#287EAB" stroke-width="0.8"/>
+<text x="217" y="97.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#287EAB" font-weight="700" text-anchor="middle">4 frozen encoders</text>
+<rect x="143" y="118" width="148" height="25" fill="#FFFFFF" stroke="#287EAB" stroke-width="0.8"/>
+<text x="217" y="133.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#287EAB" font-weight="700" text-anchor="middle">Own-source pooling</text>
+<line x1="118" y1="121" x2="142" y2="121" stroke="#617082" stroke-width="1"/>
+<line x1="138" y1="118" x2="142" y2="121" stroke="#617082" stroke-width="1"/>
+<line x1="138" y1="124" x2="142" y2="121" stroke="#617082" stroke-width="1"/>
+<rect x="320" y="82" width="131" height="25" fill="#FFFFFF" stroke="#C59530" stroke-width="0.8"/>
+<text x="385.5" y="97.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#C59530" font-weight="700" text-anchor="middle">8 binary LR heads</text>
+<rect x="320" y="118" width="131" height="25" fill="#FFFFFF" stroke="#C59530" stroke-width="0.8"/>
+<text x="385.5" y="133.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#C59530" font-weight="700" text-anchor="middle">4 semantic q pairs</text>
+<line x1="292" y1="121" x2="319" y2="121" stroke="#617082" stroke-width="1"/>
+<line x1="315" y1="118" x2="319" y2="121" stroke="#617082" stroke-width="1"/>
+<line x1="315" y1="124" x2="319" y2="121" stroke="#617082" stroke-width="1"/>
+<rect x="484" y="98" width="166" height="46" fill="#FFFFFF" stroke="#B83B50" stroke-width="0.8"/>
+<text x="567" y="124.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#B83B50" font-weight="700" text-anchor="middle">Mean probabilities</text>
+<line x1="452" y1="121" x2="483" y2="121" stroke="#617082" stroke-width="1"/>
+<line x1="479" y1="118" x2="483" y2="121" stroke="#617082" stroke-width="1"/>
+<line x1="479" y1="124" x2="483" y2="121" stroke="#617082" stroke-width="1"/>
+<text x="25" y="168.191" font-family="Arial,Helvetica,sans-serif" font-size="10.1" fill="#617082" font-weight="400" text-anchor="start">Each head uses its own encoder features. Only probabilities share a common anatomical meaning.</text>
+<text x="24" y="215.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">b</text>
+<text x="47" y="214.102" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Anatomical Dice across six fixed policies</text>
+<text x="281" y="233.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#287EAB" font-weight="700" text-anchor="middle">Strong 3D</text>
+<text x="426" y="233.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#C59530" font-weight="700" text-anchor="middle">Simple fusion</text>
+<text x="571" y="233.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#B83B50" font-weight="700" text-anchor="middle">Point-cloud branch</text>
+<text x="34" y="262.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Unconstrained</text>
+<rect x="210" y="247" width="143" height="23" fill="#609fc1" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="262.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.850</text>
+<rect x="355" y="247" width="143" height="23" fill="#65a3c3" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="262.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.820</text>
+<rect x="500" y="247" width="143" height="23" fill="#7fb2cd" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="262.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">0.670</text>
+<text x="34" y="286.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">COUNT8</text>
+<rect x="210" y="271" width="143" height="23" fill="#5e9fc0" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="286.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.858</text>
+<rect x="355" y="271" width="143" height="23" fill="#62a1c2" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="286.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.836</text>
+<rect x="500" y="271" width="143" height="23" fill="#7db1cc" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="286.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">0.680</text>
+<text x="34" y="310.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Original hard</text>
+<rect x="210" y="295" width="143" height="23" fill="#5e9fc0" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="310.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.858</text>
+<rect x="355" y="295" width="143" height="23" fill="#62a1c1" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="310.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.840</text>
+<rect x="500" y="295" width="143" height="23" fill="#7cb1cc" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="310.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">0.685</text>
+<text x="34" y="334.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Original soft</text>
+<rect x="210" y="319" width="143" height="23" fill="#5f9fc0" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="334.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.857</text>
+<rect x="355" y="319" width="143" height="23" fill="#62a1c2" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="334.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">0.839</text>
+<rect x="500" y="319" width="143" height="23" fill="#7db1cc" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="334.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">0.680</text>
+<text x="34" y="358.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="700" text-anchor="start">MRA-late hard</text>
+<rect x="210" y="343" width="143" height="23" fill="#5f9fc1" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="358.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="700" text-anchor="middle">0.853</text>
+<rect x="355" y="343" width="143" height="23" fill="#64a2c2" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="358.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="700" text-anchor="middle">0.828</text>
+<rect x="500" y="343" width="143" height="23" fill="#7eb2cd" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="358.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="middle">0.674</text>
+<text x="34" y="382.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="700" text-anchor="start">MRA-late soft</text>
+<rect x="210" y="367" width="143" height="23" fill="#5f9fc1" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="382.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="700" text-anchor="middle">0.853</text>
+<rect x="355" y="367" width="143" height="23" fill="#64a2c3" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="382.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="700" text-anchor="middle">0.825</text>
+<rect x="500" y="367" width="143" height="23" fill="#7db1cc" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="382.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="middle">0.679</text>
+<text x="34" y="408.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="start">2,048 given-foreground points per patient. Primary macro average uses output-specific nonempty classes.</text>
+<text x="24" y="451.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">c</text>
+<text x="47" y="450.102" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Annotation-defined absent-class false-positive rate</text>
+<text x="281" y="469.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#287EAB" font-weight="700" text-anchor="middle">Strong 3D</text>
+<text x="426" y="469.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#C59530" font-weight="700" text-anchor="middle">Simple fusion</text>
+<text x="571" y="469.464" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#B83B50" font-weight="700" text-anchor="middle">Point-cloud branch</text>
+<text x="34" y="498.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Unconstrained</text>
+<rect x="210" y="483" width="143" height="23" fill="#eed0d5" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="498.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">8.8%</text>
+<rect x="355" y="483" width="143" height="23" fill="#ce7786" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="498.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">30.8%</text>
+<rect x="500" y="483" width="143" height="23" fill="#cc7483" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="498.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="400" text-anchor="middle">31.7%</text>
+<text x="34" y="522.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">COUNT8</text>
+<rect x="210" y="507" width="143" height="23" fill="#f2dce0" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="522.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">5.8%</text>
+<rect x="355" y="507" width="143" height="23" fill="#e4b5bd" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="522.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">15.4%</text>
+<rect x="500" y="507" width="143" height="23" fill="#d8939f" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="522.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">23.8%</text>
+<text x="34" y="546.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Original hard</text>
+<rect x="210" y="531" width="143" height="23" fill="#f6e6e9" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="546.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">3.3%</text>
+<rect x="355" y="531" width="143" height="23" fill="#ecc9cf" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="546.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">10.4%</text>
+<rect x="500" y="531" width="143" height="23" fill="#e7bcc3" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="546.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">13.8%</text>
+<text x="34" y="570.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Original soft</text>
+<rect x="210" y="555" width="143" height="23" fill="#f4e1e4" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="570.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">4.6%</text>
+<rect x="355" y="555" width="143" height="23" fill="#eac4cb" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="570.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">11.7%</text>
+<rect x="500" y="555" width="143" height="23" fill="#d8939f" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="570.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="middle">23.8%</text>
+<text x="34" y="594.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="700" text-anchor="start">MRA-late hard</text>
+<rect x="210" y="579" width="143" height="23" fill="#f0d7db" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="594.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="middle">7.1%</text>
+<rect x="355" y="579" width="143" height="23" fill="#d48895" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="594.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="middle">26.7%</text>
+<rect x="500" y="579" width="143" height="23" fill="#ce7987" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="594.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="700" text-anchor="middle">30.4%</text>
+<text x="34" y="618.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="700" text-anchor="start">MRA-late soft</text>
+<rect x="210" y="603" width="143" height="23" fill="#f0d7db" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="618.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="middle">7.1%</text>
+<rect x="355" y="603" width="143" height="23" fill="#d1818f" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="618.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#FFFFFF" font-weight="700" text-anchor="middle">28.3%</text>
+<rect x="500" y="603" width="143" height="23" fill="#d8939f" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="618.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="middle">23.8%</text>
+<text x="34" y="644.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="start">One or more predicted points trigger class presence. Complete reference masks define class absence.</text>
+<text x="24" y="688.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">d</text>
+<text x="47" y="687.102" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Changed-point outcomes relative to unconstrained outputs</text>
+<text x="281" y="715.373" font-family="Arial,Helvetica,sans-serif" font-size="10.3" fill="#287EAB" font-weight="700" text-anchor="middle">Strong 3D</text>
+<text x="281" y="729.917" font-family="Arial,Helvetica,sans-serif" font-size="8.7" fill="#617082" font-weight="400" text-anchor="middle">Correct / New error / Rare TP lost</text>
+<text x="426" y="715.373" font-family="Arial,Helvetica,sans-serif" font-size="10.3" fill="#C59530" font-weight="700" text-anchor="middle">Simple fusion</text>
+<text x="426" y="729.917" font-family="Arial,Helvetica,sans-serif" font-size="8.7" fill="#617082" font-weight="400" text-anchor="middle">Correct / New error / Rare TP lost</text>
+<text x="571" y="715.373" font-family="Arial,Helvetica,sans-serif" font-size="10.3" fill="#B83B50" font-weight="700" text-anchor="middle">Point-cloud branch</text>
+<text x="571" y="729.917" font-family="Arial,Helvetica,sans-serif" font-size="8.7" fill="#617082" font-weight="400" text-anchor="middle">Correct / New error / Rare TP lost</text>
+<text x="34" y="749.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Unconstrained</text>
+<rect x="210" y="735" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="750.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">0 / 0 / 0</text>
+<rect x="355" y="735" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="750.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">0 / 0 / 0</text>
+<rect x="500" y="735" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="750.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">0 / 0 / 0</text>
+<text x="34" y="775.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">COUNT8</text>
+<rect x="210" y="761" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="776.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">5 / 0 / 0</text>
+<rect x="355" y="761" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="776.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="400" text-anchor="middle">6 / 6 / 6</text>
+<rect x="500" y="761" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="776.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">1 / 0 / 0</text>
+<text x="34" y="801.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Original hard</text>
+<rect x="210" y="787" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="802.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="400" text-anchor="middle">7 / 6 / 6</text>
+<rect x="355" y="787" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="802.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="400" text-anchor="middle">14 / 6 / 6</text>
+<rect x="500" y="787" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="802.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">22 / 0 / 0</text>
+<text x="34" y="827.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="400" text-anchor="start">Original soft</text>
+<rect x="210" y="813" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="828.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="400" text-anchor="middle">5 / 0 / 0</text>
+<rect x="355" y="813" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="828.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="400" text-anchor="middle">13 / 1 / 1</text>
+<rect x="500" y="813" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="828.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="400" text-anchor="middle">4 / 1 / 1</text>
+<text x="34" y="853.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="700" text-anchor="start">MRA-late hard</text>
+<rect x="210" y="839" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="854.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="700" text-anchor="middle">0 / 0 / 0</text>
+<rect x="355" y="839" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="854.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="700" text-anchor="middle">2 / 0 / 0</text>
+<rect x="500" y="839" width="143" height="25" fill="#FFFFFF" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="854.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#253341" font-weight="700" text-anchor="middle">0 / 0 / 0</text>
+<text x="34" y="879.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#253341" font-weight="700" text-anchor="start">MRA-late soft</text>
+<rect x="210" y="865" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="281.5" y="880.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="700" text-anchor="middle">2 / 1 / 1</text>
+<rect x="355" y="865" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="426.5" y="880.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="700" text-anchor="middle">5 / 1 / 1</text>
+<rect x="500" y="865" width="143" height="25" fill="#F3F6F9" stroke="none" stroke-width="0.6"/>
+<text x="571.5" y="880.192" font-family="Arial,Helvetica,sans-serif" font-size="11.2" fill="#B83B50" font-weight="700" text-anchor="middle">4 / 5 / 5</text>
+<text x="25" y="918.736" font-family="Arial,Helvetica,sans-serif" font-size="9.6" fill="#617082" font-weight="400" text-anchor="start">Original hard: threshold 0.05. Original soft: strength 0.25. MRA-late uses the same fixed policies.</text>
+<text x="25" y="936.736" font-family="Arial,Helvetica,sans-serif" font-size="9.6" fill="#617082" font-weight="400" text-anchor="start">A higher macro Dice can reflect removal of a zero-Dice absent-class term without correcting a point.</text>
+<text x="25" y="954.736" font-family="Arial,Helvetica,sans-serif" font-size="9.6" fill="#617082" font-weight="400" text-anchor="start">All six arms retain the same frozen semantic base. This repeated-DEV comparison is not a safety certification.</text>
+<text x="24" y="1003.8376666666667" font-family="Arial,Helvetica,sans-serif" font-size="8.1" fill="#617082" font-weight="400" text-anchor="start">Supplementary Figure 7 | Single-MRA interface ablation on Lausanne DEV</text></svg>

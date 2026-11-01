@@ -1,0 +1,44 @@
+{
+  "schema": "StrokeVasc_public_auto_a_aggregate_v1",
+  "date": "2026-11-01",
+  "cohort": "Lausanne",
+  "role": "Repeated external DEV",
+  "n_patients": 20,
+  "encoder_forwards": 40,
+  "fits": 0,
+  "review": {
+    "qualified": true,
+    "independent_checks": 3284
+  },
+  "scope": "Dense decoder sensitivity conditional on reference-derived ROI and intensity normalization, evaluated on the released native annotation grid",
+  "foreground_aggregation": "Arithmetic mean of 20 patient-level Dice, recall and precision values; not pooled voxel statistics",
+  "foreground": {
+    "Dice": 0.8545658355034147,
+    "recall": 0.8776201496171344,
+    "precision": 0.8341492717242941
+  },
+  "native_identity_macro_Dice": {
+    "n": 20,
+    "mean": 0.6595110682111545,
+    "exploratory_patient_bootstrap95": [
+      0.6350614951727803,
+      0.684042875896638
+    ]
+  },
+  "native_absent_class_FPR": {
+    "n": 20,
+    "mean": 0.041666666666666664,
+    "exploratory_patient_bootstrap95": [
+      0.0,
+      0.1
+    ]
+  },
+  "no_foreground_overlap_branches": 1,
+  "no_correct_identity_branches": 24,
+  "AUTO_B": {
+    "status": "NOT_ADMITTED",
+    "missing": "Prospectively fixed GT-free full-FOV ROI, normalization and automatic foreground input binding"
+  },
+  "comparison_boundary": "Not directly comparable to sampled-point identity Dice; not end-to-end automatic segmentation",
+  "original_results_and_STOP_preserved": true
+}

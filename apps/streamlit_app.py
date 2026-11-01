@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from app_core import (ARMS, DISPLAY_NAMES, RARE_BRANCHES, display_subset,
     find_summary, load_public_summary, packaged_images, statistic_text,
     support_text, validate_pointcloud_npz)
+from benchmark_update import MODELS as UPDATE_MODELS, POLICIES as UPDATE_POLICIES, load_development_update
 
 RELEASE = Path(__file__).resolve().parents[1]
 COLORS = {"BASE3D":"#537E95", "CONCAT":"#A7BCC7", "YZ_UNGATED":"#B9A59A", "YZ_GATE":"#198D85"}
@@ -157,6 +158,43 @@ def limitations_tab():
     st.caption("This is a local research-results presentation, not a medical device. Public hosting, datasets and weights need separately reviewed permissions. No account, token or clinical file is required for the reviewed-aggregate view.")
 
 
+def development_update_tab():
+    st.markdown("#### Reviewed development update · 1 November 2026")
+    try:
+        data, auto = load_development_update(RELEASE)
+    except (OSError, ValueError, KeyError) as error:
+        st.info(f"Versioned development aggregate unavailable: {error}")
+        return
+    st.caption("Lausanne DEV · 20 repeatedly evaluated patients · all six locked policies · original main results unchanged")
+    st.warning("The revised semantic-probability interface has not shown an efficacy advantage. This is not new independent validation, clinical safety certification or NC/NMI mechanism evidence.")
+    model = st.selectbox("Development comparison model", UPDATE_MODELS, key="development_model")
+    rows = []
+    for policy in UPDATE_POLICIES:
+        item = data["summaries"][model][policy]
+        dice, fpr = item["sampled_macro_Dice"], item["annotation_absent_FPR"]
+        rows.append({"Fixed policy": policy,
+            "Sampled macro Dice": f'{dice["mean"]:.4f}',
+            "Exploratory Dice 95% CI": f'{dice["CI95"][0]:.4f}–{dice["CI95"][1]:.4f}',
+            "Absent-class FPR": f'{fpr["mean"]:.4f}',
+            "Corrected points": int(item["corrected_points"]["sum"]),
+            "New error points": int(item["new_error_points"]["sum"]),
+            "Any-new-error patients": int(item["any_new_error"]["sum"]),
+            "Rare TP points lost": int(item["rare_TP_lost"]["sum"])})
+    st.dataframe(rows, hide_index=True, width="stretch")
+    st.info("Sampled macro Dice averages classes nonempty in ground truth OR prediction within each scan. Removing a false-positive-only class can increase Dice with zero corrected points. Corrected/new error counts are separate within-model comparisons versus NONE.")
+    st.caption("The new version fits eight source-specific single-MRA LR heads, then averages semantic probabilities. The encoder had prior CT exposure to FIT patients; features are not OOF. Bootstrap intervals use 2,000 paired patient draws and are exploratory, not corrected for repeated development or all endpoints.")
+    st.markdown("#### AUTO-A · separate conditional dense-grid task")
+    columns = st.columns(3)
+    for column, title, value in zip(columns,
+        ("Patient-mean foreground Dice", "Native identity macro Dice", "Native absent-class FPR"),
+        (auto["foreground"]["Dice"], auto["native_identity_macro_Dice"]["mean"],
+         auto["native_absent_class_FPR"]["mean"])):
+        column.metric(title, f"{value:.4f}")
+    st.caption("40 frozen dense forwards, zero fits; reference-derived ROI and intensity normalization. Foreground metrics are patient means, not pooled voxel statistics. Not directly comparable to the sampled-point Dice above. GT-free full-field automatic deployment remains NOT_ADMITTED.")
+    for image in packaged_images(RELEASE, "figures/benchmark_update_20261101"):
+        st.image(str(image), caption=image.stem.replace("_", " ") + " · reviewed aggregate development comparison", width="stretch")
+
+
 def main():
     st.set_page_config(page_title="StrokePoint++ · Research Explorer",page_icon="🧠",layout="wide")
     st.markdown("<style>.block-container{padding-top:2rem;max-width:1400px}h1{letter-spacing:-.045em} [data-testid=stMetricValue]{font-size:1.7rem}</style>",unsafe_allow_html=True)
@@ -181,7 +219,7 @@ def main():
             st.metric("Patients",cohort["n_patients"])
             st.caption("Single MRA · 2,048 foreground points · four fixed arms")
         st.warning("Not for clinical use")
-    tabs=st.tabs(("Reviewed results","Rare branches","Figures & cases","Local points","Limitations"))
+    tabs=st.tabs(("Reviewed results","Rare branches","Figures & cases","Local points","Development update","Limitations"))
     with tabs[0]:
         if data:results_tab(cohort)
         else:st.caption("Results require the independently reviewed packaged aggregate; no live artifact or model path is read.")
@@ -190,7 +228,8 @@ def main():
         else:st.caption("Rare-branch support will be shown with reviewed data.")
     with tabs[2]:figures_tab()
     with tabs[3]:local_points_tab()
-    with tabs[4]:limitations_tab()
+    with tabs[4]:development_update_tab()
+    with tabs[5]:limitations_tab()
 
 
 if __name__ == "__main__":

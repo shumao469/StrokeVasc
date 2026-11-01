@@ -9,6 +9,14 @@ quick-start commands, see the [README](README.md#interactive-viewer--streamlit).
 
 ## Required packaged files
 
+The separate **Development update** tab uses only
+`results/aggregate/benchmark_20261101_v1.json` and
+`results/aggregate/auto_a_20261101_v1.json`. It retains all six fixed policies
+and distinguishes reference-ROI dense sensitivity from sampled-point labeling.
+It does not replace the original cohort panels or run the eight-head fitting
+experiment. A missing new aggregate is reported without affecting the frozen
+main results. No cloud deployment is performed by this update.
+
 - Entry point: `apps/streamlit_app.py`
 - Dependencies: `requirements-app.txt`
 - Reviewed aggregate: either `results/aggregate/DEV_FINAL_four_arm_summary_v1.json`, or the two independently reviewed wrappers `externalDEV_Lausanne.json` and `externalFINAL_IXI_HH.json` in that directory (`data/aggregate/` is a compatibility fallback)

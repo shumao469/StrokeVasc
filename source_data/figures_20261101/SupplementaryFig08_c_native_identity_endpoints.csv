@@ -1,0 +1,3 @@
+"cohort","metric","mean","ci95_low","ci95_high","patients","aggregation"
+"Lausanne repeated DEV","Identity macro Dice",0.6595110682111545,0.6350614951727803,0.684042875896638,20,"patient mean; 2000 patient bootstrap draws"
+"Lausanne repeated DEV","Absent-class FPR",0.041666666666666664,0,0.1,20,"patient mean; 2000 patient bootstrap draws"

@@ -1,0 +1,3529 @@
+{
+  "schema": "StrokeVasc_public_development_benchmark_v1",
+  "date": "2026-11-01",
+  "cohort": "Lausanne",
+  "role": "Repeated external DEV; not new independent validation",
+  "n_patients": 20,
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "1.26.4",
+    "torch": "2.11.0+cu128",
+    "cuda_runtime": "12.8",
+    "torch_threads": 4,
+    "cuda_matmul_allow_tf32": true,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false
+  },
+  "model_order": [
+    "YZ",
+    "BASE3D",
+    "CONCAT"
+  ],
+  "policy_order": [
+    "NONE",
+    "COUNT8",
+    "OLD_YZ_HARD0.05",
+    "OLD_YZ_SOFT0.25",
+    "NEW_MRA_LATE_HARD0.05",
+    "NEW_MRA_LATE_SOFT0.25"
+  ],
+  "review": {
+    "qualified": true,
+    "independent_checks": 44900,
+    "heads_reviewed": 8,
+    "model_policy_records": 360,
+    "FIT_MRA_targets_independently_reviewed": true
+  },
+  "interface": {
+    "name": "Gate-MRA-SemProb-R1",
+    "frozen_encoder_sources": 4,
+    "binary_heads_fitted": 8,
+    "FIT_patients_per_source": 24,
+    "FIT_unique_patients": 48,
+    "targets": [
+      "Pcom presence (either side)",
+      "third-A2 presence"
+    ],
+    "aggregation": "Mean of four source-specific probabilities for each target",
+    "encoder_exposure": "FIT patients were previously exposed through CT; not OOF",
+    "model_updates": "Only fixed LR heads; no encoder update",
+    "replaces_original_method": false
+  },
+  "definitions": {
+    "sampled_macro_Dice": "Within each scan, macro Dice over GT-or-prediction nonempty anatomical classes, then patient mean; class support can change after gating",
+    "annotation_absent_FPR": "Patient mean of false presence among classes absent in the complete released annotation",
+    "corrected_points": "Baseline incorrect sampled points made correct, versus the same model's NONE policy",
+    "new_error_points": "Baseline correct sampled points made incorrect, versus the same model's NONE policy",
+    "any_new_error": "Patients with at least one newly incorrect sampled point, versus the same model's NONE policy",
+    "rare_TP_lost": "Previously correct sampled rare-branch points made incorrect, versus the same model's NONE policy",
+    "sampled_baseline_TP_branch_support_lost": "Previously detected sampled true-positive branches losing all correct identity support",
+    "recall_native8": "R-Pcom sampled-point recall, complete-annotation positive support",
+    "recall_native9": "L-Pcom sampled-point recall, complete-annotation positive support",
+    "recall_native10": "Acom sampled-point recall, complete-annotation positive support",
+    "recall_native15": "third-A2 sampled-point recall, complete-annotation positive support"
+  },
+  "uncertainty": {
+    "bootstrap_unit": "Paired patient",
+    "draws": 2000,
+    "seed": 20261101,
+    "interval": "Exploratory 95%; not multiplicity or repeated-development corrected",
+    "interpretation": "A Dice increase can arise from changing the nonempty class denominator without any corrected point. Zero observed new errors does not certify safety."
+  },
+  "summaries": {
+    "YZ": {
+      "NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.6700935702844062,
+          "n": 20,
+          "CI95": [
+            0.6203473869278513,
+            0.7211536895795436
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.31666666666666665,
+          "n": 20,
+          "CI95": [
+            0.15,
+            0.5
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.18400514548888536,
+          "n": 12,
+          "CI95": [
+            0.0875617323213477,
+            0.2947755931709184
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.34306847406126645,
+          "n": 11,
+          "CI95": [
+            0.18036445391304726,
+            0.5103367437884244
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.16666666666666666,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.3333333333333333
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": 0.6799558107429584,
+          "n": 20,
+          "CI95": [
+            0.6283105128693846,
+            0.7317608636786838
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.2375,
+          "n": 20,
+          "CI95": [
+            0.0875,
+            0.4125
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.18400514548888536,
+          "n": 12,
+          "CI95": [
+            0.0875617323213477,
+            0.2947755931709184
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.34306847406126645,
+          "n": 11,
+          "CI95": [
+            0.18036445391304726,
+            0.5103367437884244
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.16666666666666666,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.3333333333333333
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "OLD_YZ_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": 0.6848688692393725,
+          "n": 20,
+          "CI95": [
+            0.6367698550454121,
+            0.7355677802248063
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.1375,
+          "n": 20,
+          "CI95": [
+            0.0125,
+            0.2753124999999983
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.18400514548888536,
+          "n": 12,
+          "CI95": [
+            0.0875617323213477,
+            0.2947755931709184
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.34306847406126645,
+          "n": 11,
+          "CI95": [
+            0.18036445391304726,
+            0.5103367437884244
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.16666666666666666,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.3333333333333333
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 1.1,
+          "n": 20,
+          "CI95": [
+            0.0,
+            2.8
+          ],
+          "sum": 22.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "OLD_YZ_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": 0.6798648387714843,
+          "n": 20,
+          "CI95": [
+            0.62831807698475,
+            0.7314129942569052
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.2375,
+          "n": 20,
+          "CI95": [
+            0.0875,
+            0.4125
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.18400514548888536,
+          "n": 12,
+          "CI95": [
+            0.0875617323213477,
+            0.2947755931709184
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.33893624265630773,
+          "n": 11,
+          "CI95": [
+            0.18036445391304726,
+            0.5043402810408739
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.16666666666666666,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.3333333333333333
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.2,
+          "n": 20,
+          "CI95": [
+            0.05,
+            0.4
+          ],
+          "sum": 4.0
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": 0.6742224680296192,
+          "n": 20,
+          "CI95": [
+            0.6222372335007157,
+            0.7267722349133937
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.30416666666666664,
+          "n": 20,
+          "CI95": [
+            0.1375,
+            0.4916666666666666
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.18400514548888536,
+          "n": 12,
+          "CI95": [
+            0.0875617323213477,
+            0.2947755931709184
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.34306847406126645,
+          "n": 11,
+          "CI95": [
+            0.18036445391304726,
+            0.5103367437884244
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.16666666666666666,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.3333333333333333
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": 0.6790781350322317,
+          "n": 20,
+          "CI95": [
+            0.6280720075270163,
+            0.7305130888888368
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.2375,
+          "n": 20,
+          "CI95": [
+            0.0875,
+            0.4125
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.1770607010444409,
+          "n": 12,
+          "CI95": [
+            0.08578375097125097,
+            0.28393697643420474
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.32831050475784257,
+          "n": 11,
+          "CI95": [
+            0.17992197484716663,
+            0.48956185789519113
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.16666666666666666,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.3333333333333333
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.2,
+          "n": 20,
+          "CI95": [
+            0.05,
+            0.35
+          ],
+          "sum": 4.0
+        },
+        "new_error_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.55
+          ],
+          "sum": 5.0
+        },
+        "any_new_error": {
+          "mean": 0.15,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.3
+          ],
+          "sum": 3.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.55
+          ],
+          "sum": 5.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      }
+    },
+    "BASE3D": {
+      "NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.8503876721632062,
+          "n": 20,
+          "CI95": [
+            0.8211444151623825,
+            0.8783653972919441
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.0875,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.2125
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.6945101057905935,
+          "n": 12,
+          "CI95": [
+            0.5713368465472124,
+            0.8085682237816382
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.5795164767031774,
+          "n": 11,
+          "CI95": [
+            0.460318478143766,
+            0.6911641810570381
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.22903502747252746,
+          "n": 16,
+          "CI95": [
+            0.11302036199095022,
+            0.3577159168956044
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": 0.8582800593950385,
+          "n": 20,
+          "CI95": [
+            0.829541083497046,
+            0.8874179029907636
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.05833333333333333,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.6945101057905935,
+          "n": 12,
+          "CI95": [
+            0.5713368465472124,
+            0.8085682237816382
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.5795164767031774,
+          "n": 11,
+          "CI95": [
+            0.460318478143766,
+            0.6911641810570381
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.22903502747252746,
+          "n": 16,
+          "CI95": [
+            0.11302036199095022,
+            0.3577159168956044
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.75
+          ],
+          "sum": 5.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "OLD_YZ_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": 0.858494911508636,
+          "n": 20,
+          "CI95": [
+            0.8300328792997294,
+            0.8874512828453937
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.03333333333333333,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.1
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.6445101057905935,
+          "n": 12,
+          "CI95": [
+            0.47485158950402856,
+            0.7895234237993384
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.5795164767031774,
+          "n": 11,
+          "CI95": [
+            0.460318478143766,
+            0.6911641810570381
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.22903502747252746,
+          "n": 16,
+          "CI95": [
+            0.11302036199095022,
+            0.3577159168956044
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.35,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.95
+          ],
+          "sum": 7.0
+        },
+        "new_error_points": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.9
+          ],
+          "sum": 6.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.9
+          ],
+          "sum": 6.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        }
+      },
+      "OLD_YZ_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": 0.8569587392067396,
+          "n": 20,
+          "CI95": [
+            0.8311667136055556,
+            0.8821262998944924
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.04583333333333333,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.125
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.6945101057905935,
+          "n": 12,
+          "CI95": [
+            0.5713368465472124,
+            0.8085682237816382
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.5795164767031774,
+          "n": 11,
+          "CI95": [
+            0.460318478143766,
+            0.6911641810570381
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.22903502747252746,
+          "n": 16,
+          "CI95": [
+            0.11302036199095022,
+            0.3577159168956044
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.6012499999999932
+          ],
+          "sum": 5.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": 0.8532335225985008,
+          "n": 20,
+          "CI95": [
+            0.8273601249839663,
+            0.8795496577729225
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.07083333333333333,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15833333333333333
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.6945101057905935,
+          "n": 12,
+          "CI95": [
+            0.5713368465472124,
+            0.8085682237816382
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.5795164767031774,
+          "n": 11,
+          "CI95": [
+            0.460318478143766,
+            0.6911641810570381
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.22903502747252746,
+          "n": 16,
+          "CI95": [
+            0.11302036199095022,
+            0.3577159168956044
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": 0.8530961573493302,
+          "n": 20,
+          "CI95": [
+            0.8270454667399864,
+            0.879423598353833
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.07083333333333333,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15833333333333333
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.6945101057905935,
+          "n": 12,
+          "CI95": [
+            0.5713368465472124,
+            0.8085682237816382
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.5753842452982189,
+          "n": 11,
+          "CI95": [
+            0.4543265464288483,
+            0.6876501983854925
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.22903502747252746,
+          "n": 16,
+          "CI95": [
+            0.11302036199095022,
+            0.3577159168956044
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.1,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.25
+          ],
+          "sum": 2.0
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      }
+    },
+    "CONCAT": {
+      "NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.8204429444743855,
+          "n": 20,
+          "CI95": [
+            0.7883338639631465,
+            0.8517159752239424
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.3083333333333333,
+          "n": 20,
+          "CI95": [
+            0.14166666666666666,
+            0.4916666666666666
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.7042486414437633,
+          "n": 12,
+          "CI95": [
+            0.5801806749931749,
+            0.8138934382570745
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.3736145567065287,
+          "n": 11,
+          "CI95": [
+            0.23952658097165083,
+            0.5089884364209011
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.18973214285714285,
+          "n": 16,
+          "CI95": [
+            0.09772722246793454,
+            0.28952472527472534
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": 0.835556468441537,
+          "n": 20,
+          "CI95": [
+            0.8052017596443635,
+            0.8662259624691632
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.15416666666666665,
+          "n": 20,
+          "CI95": [
+            0.0375,
+            0.30416666666666664
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.658753145948268,
+          "n": 12,
+          "CI95": [
+            0.4854860892399002,
+            0.8007111851513181
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.3777467881114873,
+          "n": 11,
+          "CI95": [
+            0.24352398380807677,
+            0.5129662537395113
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.18973214285714285,
+          "n": 16,
+          "CI95": [
+            0.09772722246793454,
+            0.28952472527472534
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.05,
+            0.6
+          ],
+          "sum": 6.0
+        },
+        "new_error_points": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.9
+          ],
+          "sum": 6.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.9
+          ],
+          "sum": 6.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        }
+      },
+      "OLD_YZ_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": 0.840451292840999,
+          "n": 20,
+          "CI95": [
+            0.8136186351956426,
+            0.8685502208377059
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.10416666666666666,
+          "n": 20,
+          "CI95": [
+            0.016666666666666666,
+            0.21666666666666665
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.658753145948268,
+          "n": 12,
+          "CI95": [
+            0.4854860892399002,
+            0.8007111851513181
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.40571881608351534,
+          "n": 11,
+          "CI95": [
+            0.2819969033397285,
+            0.5187095720735959
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.18973214285714285,
+          "n": 16,
+          "CI95": [
+            0.09772722246793454,
+            0.28952472527472534
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.7,
+          "n": 20,
+          "CI95": [
+            0.1,
+            1.65
+          ],
+          "sum": 14.0
+        },
+        "new_error_points": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.9
+          ],
+          "sum": 6.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.3,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.9
+          ],
+          "sum": 6.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        }
+      },
+      "OLD_YZ_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": 0.8388549120991243,
+          "n": 20,
+          "CI95": [
+            0.8149295125902104,
+            0.8634744435836821
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.11666666666666665,
+          "n": 20,
+          "CI95": [
+            0.025,
+            0.2333333333333333
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.7065008936960157,
+          "n": 12,
+          "CI95": [
+            0.5851749771871723,
+            0.8145937280693377
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.40571881608351534,
+          "n": 11,
+          "CI95": [
+            0.2819969033397285,
+            0.5187095720735959
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.18973214285714285,
+          "n": 16,
+          "CI95": [
+            0.09772722246793454,
+            0.28952472527472534
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.65,
+          "n": 20,
+          "CI95": [
+            0.05,
+            1.6
+          ],
+          "sum": 13.0
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": 0.8275563397713392,
+          "n": 20,
+          "CI95": [
+            0.7981611283696994,
+            0.857935057226892
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.26666666666666666,
+          "n": 20,
+          "CI95": [
+            0.10822916666666667,
+            0.4416666666666666
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.7042486414437633,
+          "n": 12,
+          "CI95": [
+            0.5801806749931749,
+            0.8138934382570745
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.3777467881114873,
+          "n": 11,
+          "CI95": [
+            0.24352398380807677,
+            0.5129662537395113
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.18973214285714285,
+          "n": 16,
+          "CI95": [
+            0.09772722246793454,
+            0.28952472527472534
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.1,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.25
+          ],
+          "sum": 2.0
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": 0.8246316311298976,
+          "n": 20,
+          "CI95": [
+            0.7940287821527509,
+            0.8570288345111884
+          ],
+          "sum": null
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.2833333333333333,
+          "n": 20,
+          "CI95": [
+            0.12072916666666667,
+            0.4666666666666666
+          ],
+          "sum": null
+        },
+        "recall_native8": {
+          "mean": 0.7019963891915112,
+          "n": 12,
+          "CI95": [
+            0.574716264106508,
+            0.813421903308267
+          ],
+          "sum": null
+        },
+        "recall_native9": {
+          "mean": 0.38473979510449435,
+          "n": 11,
+          "CI95": [
+            0.2582778462334379,
+            0.5138925704229869
+          ],
+          "sum": null
+        },
+        "recall_native10": {
+          "mean": 0.18973214285714285,
+          "n": 16,
+          "CI95": [
+            0.09772722246793454,
+            0.28952472527472534
+          ],
+          "sum": null
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": null
+        },
+        "corrected_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.05,
+            0.5
+          ],
+          "sum": 5.0
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ],
+          "sum": 1.0
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ],
+          "sum": 0.0
+        }
+      }
+    }
+  },
+  "contrasts": {
+    "YZ": {
+      "NEW_MRA_LATE_HARD0.05__minus__NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.0041288977452130894,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.012386693235639235
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": -0.0125,
+          "n": 20,
+          "CI95": [
+            -0.037500000000000006,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.008984564747825571,
+          "n": 20,
+          "CI95": [
+            -0.0007176981789030561,
+            0.02071177862490845
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": -0.07916666666666666,
+          "n": 20,
+          "CI95": [
+            -0.19999999999999998,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": -0.006944444444444443,
+          "n": 12,
+          "CI95": [
+            -0.022727272727272735,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.01475796930342385,
+          "n": 11,
+          "CI95": [
+            -0.03607503607503604,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.2,
+          "n": 20,
+          "CI95": [
+            0.05,
+            0.35
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.55
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.15,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.3
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.55
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05__minus__COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": -0.005733342713339196,
+          "n": 20,
+          "CI95": [
+            -0.01512596919897391,
+            0.0
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.06666666666666667,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.18333333333333332
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": -0.0008776757107267136,
+          "n": 20,
+          "CI95": [
+            -0.0021170701559864807,
+            2.678587599902471e-05
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": -0.006944444444444443,
+          "n": 12,
+          "CI95": [
+            -0.022727272727272735,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.01475796930342385,
+          "n": 11,
+          "CI95": [
+            -0.03607503607503604,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.15,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.3
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.55
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.15,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.3
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.55
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05__minus__OLD_YZ_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": -0.010646401209753437,
+          "n": 20,
+          "CI95": [
+            -0.02074313222178104,
+            -0.0019518504135958015
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.16666666666666669,
+          "n": 20,
+          "CI95": [
+            0.01666666666666669,
+            0.33333333333333337
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -1.1,
+          "n": 20,
+          "CI95": [
+            -2.8,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__OLD_YZ_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": -0.0007867037392526255,
+          "n": 20,
+          "CI95": [
+            -0.0019204604897632427,
+            -4.399789881221341e-05
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": -0.006944444444444443,
+          "n": 12,
+          "CI95": [
+            -0.022727272727272735,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.010625737898465165,
+          "n": 11,
+          "CI95": [
+            -0.025974025974025983,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.14999999999999997
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.2,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.45
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.1,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.25
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.2,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.45
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "BASE3D": {
+      "NEW_MRA_LATE_HARD0.05__minus__NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.0028458504352945114,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.008537551305883628
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": -0.01666666666666667,
+          "n": 20,
+          "CI95": [
+            -0.05000000000000002,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.00270848518612396,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.008075995916346227
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": -0.01666666666666667,
+          "n": 20,
+          "CI95": [
+            -0.05000000000000002,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.004132231404958679,
+          "n": 11,
+          "CI95": [
+            -0.013636363636363669,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.1,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.25
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05__minus__COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": -0.005046536796537604,
+          "n": 20,
+          "CI95": [
+            -0.015139610389612868,
+            0.0
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.0125,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0375
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.25,
+          "n": 20,
+          "CI95": [
+            -0.75,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": -0.005183902045708155,
+          "n": 20,
+          "CI95": [
+            -0.015391308806098184,
+            2.6427560169905995e-05
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.0125,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0375
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.004132231404958679,
+          "n": 11,
+          "CI95": [
+            -0.013636363636363669,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.15,
+          "n": 20,
+          "CI95": [
+            -0.6,
+            0.15
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05__minus__OLD_YZ_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": -0.005261388910135218,
+          "n": 20,
+          "CI95": [
+            -0.015359833806050634,
+            0.0
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.0375,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.1
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.049999999999999996,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.16363636363636364
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.35,
+          "n": 20,
+          "CI95": [
+            -0.95,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": -0.3,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": -0.3,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__OLD_YZ_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": -0.0038625818574093084,
+          "n": 20,
+          "CI95": [
+            -0.011277997207792082,
+            0.0
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.025,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.07500000000000001
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.004132231404958679,
+          "n": 11,
+          "CI95": [
+            -0.013636363636363669,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.15,
+          "n": 20,
+          "CI95": [
+            -0.39999999999999997,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "CONCAT": {
+      "NEW_MRA_LATE_HARD0.05__minus__NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.0071133952969537175,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.017832235874223556
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": -0.041666666666666664,
+          "n": 20,
+          "CI95": [
+            -0.10833333333333334,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.0,
+          "n": 12,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.004132231404958679,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.013636363636363669
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.1,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.25
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__NONE": {
+        "sampled_macro_Dice": {
+          "mean": 0.004188686655512014,
+          "n": 20,
+          "CI95": [
+            -0.00013296339569440486,
+            0.011895944781361101
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": -0.025,
+          "n": 20,
+          "CI95": [
+            -0.07500000000000001,
+            0.0
+          ]
+        },
+        "recall_native8": {
+          "mean": -0.0022522522522522522,
+          "n": 12,
+          "CI95": [
+            -0.007211302211302245,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.011125238397965672,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0271950271950272
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": 0.25,
+          "n": 20,
+          "CI95": [
+            0.05,
+            0.5
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.05,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.15
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05__minus__COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": -0.008000128670197632,
+          "n": 20,
+          "CI95": [
+            -0.022417359826388032,
+            0.006521614361899353
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.1125,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.26249999999999996
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.045495495495495496,
+          "n": 12,
+          "CI95": [
+            -0.012474012474012475,
+            0.16009090909090862
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.0,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.2,
+          "n": 20,
+          "CI95": [
+            -0.45,
+            0.0
+          ]
+        },
+        "new_error_points": {
+          "mean": -0.3,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": -0.3,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__COUNT8": {
+        "sampled_macro_Dice": {
+          "mean": -0.010924837311639336,
+          "n": 20,
+          "CI95": [
+            -0.02632716947548696,
+            0.0037860254393318723
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.12916666666666665,
+          "n": 20,
+          "CI95": [
+            0.012500000000000011,
+            0.2668749999999989
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.043243243243243246,
+          "n": 12,
+          "CI95": [
+            -0.018711018711018657,
+            0.16009090909090862
+          ]
+        },
+        "recall_native9": {
+          "mean": 0.006993006993006993,
+          "n": 11,
+          "CI95": [
+            0.0,
+            0.023076923076923078
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.35000000000000003,
+            0.3
+          ]
+        },
+        "new_error_points": {
+          "mean": -0.25,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.15
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.15
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": -0.25,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.15
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_HARD0.05__minus__OLD_YZ_HARD0.05": {
+        "sampled_macro_Dice": {
+          "mean": -0.012894953069659359,
+          "n": 20,
+          "CI95": [
+            -0.03048713105199372,
+            0.00326080718094979
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.1625,
+          "n": 20,
+          "CI95": [
+            0.012500000000000011,
+            0.3499999999999999
+          ]
+        },
+        "recall_native8": {
+          "mean": 0.045495495495495496,
+          "n": 12,
+          "CI95": [
+            -0.012474012474012475,
+            0.16009090909090862
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.027972027972027972,
+          "n": 11,
+          "CI95": [
+            -0.09230769230769231,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.6,
+          "n": 20,
+          "CI95": [
+            -1.5,
+            -0.05
+          ]
+        },
+        "new_error_points": {
+          "mean": -0.3,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": -0.3,
+          "n": 20,
+          "CI95": [
+            -0.9,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": -0.05,
+          "n": 20,
+          "CI95": [
+            -0.15,
+            0.0
+          ]
+        }
+      },
+      "NEW_MRA_LATE_SOFT0.25__minus__OLD_YZ_SOFT0.25": {
+        "sampled_macro_Dice": {
+          "mean": -0.014223280969226704,
+          "n": 20,
+          "CI95": [
+            -0.02842041762183867,
+            -0.0032735192094422993
+          ]
+        },
+        "annotation_absent_FPR": {
+          "mean": 0.16666666666666669,
+          "n": 20,
+          "CI95": [
+            0.01666666666666669,
+            0.35
+          ]
+        },
+        "recall_native8": {
+          "mean": -0.0045045045045045045,
+          "n": 12,
+          "CI95": [
+            -0.014422604422604493,
+            0.0
+          ]
+        },
+        "recall_native9": {
+          "mean": -0.020979020979020976,
+          "n": 11,
+          "CI95": [
+            -0.0692307692307692,
+            0.0
+          ]
+        },
+        "recall_native10": {
+          "mean": 0.0,
+          "n": 16,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_native15": {
+          "mean": 0.0,
+          "n": 2,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "corrected_points": {
+          "mean": -0.4,
+          "n": 20,
+          "CI95": [
+            -1.1,
+            0.05
+          ]
+        },
+        "new_error_points": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "any_new_error": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "rare_TP_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        "sampled_baseline_TP_branch_support_lost": {
+          "mean": 0.0,
+          "n": 20,
+          "CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    }
+  },
+  "decision": "Retain original frozen methods. The revised semantic-probability interface has not shown an efficacy improvement or a new mechanism claim.",
+  "protected_data_access": false,
+  "original_results_and_STOP_preserved": true
+}

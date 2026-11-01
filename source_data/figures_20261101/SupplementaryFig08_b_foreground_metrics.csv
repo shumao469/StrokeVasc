@@ -1,0 +1,4 @@
+"cohort","reference_grid","metric","value","aggregation","patients"
+"Lausanne repeated DEV","complete native regional annotation grid","Dice",0.8545658355034147,"mean of per-patient voxel-count metrics",20
+"Lausanne repeated DEV","complete native regional annotation grid","Recall",0.8776201496171344,"mean of per-patient voxel-count metrics",20
+"Lausanne repeated DEV","complete native regional annotation grid","Precision",0.8341492717242941,"mean of per-patient voxel-count metrics",20

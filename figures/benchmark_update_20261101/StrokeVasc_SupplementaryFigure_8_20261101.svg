@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180mm" height="270mm" viewBox="0 0 680.3333333333334 1020.4666666666667"><rect width="100%" height="100%" fill="white"/><text x="24" y="35.102000000000004" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">a    Reference-ROI dense decoder and native-grid evaluation</text>
+<text x="25" y="67.555" font-family="Arial,Helvetica,sans-serif" font-size="10.5" fill="#617082" font-weight="400" text-anchor="start">20 exposed Lausanne DEV patients, frozen dense decoder and locked predictions</text>
+<rect x="28" y="109" width="154" height="49" fill="#FFFFFF" stroke="#8994A2" stroke-width="0.8"/>
+<text x="105" y="136.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#8994A2" font-weight="700" text-anchor="middle">Reference ROI crop</text>
+<rect x="229" y="109" width="182" height="49" fill="#FFFFFF" stroke="#287EAB" stroke-width="0.8"/>
+<text x="320" y="136.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#287EAB" font-weight="700" text-anchor="middle">Dense 96 × 96 × 96 output</text>
+<rect x="456" y="109" width="195" height="49" fill="#FFFFFF" stroke="#C59530" stroke-width="0.8"/>
+<text x="553.5" y="136.964" font-family="Arial,Helvetica,sans-serif" font-size="10.4" fill="#C59530" font-weight="700" text-anchor="middle">Native-grid mapping</text>
+<line x1="183" y1="134" x2="228" y2="134" stroke="#617082" stroke-width="1"/>
+<line x1="224" y1="131" x2="228" y2="134" stroke="#617082" stroke-width="1"/>
+<line x1="224" y1="137" x2="228" y2="134" stroke="#617082" stroke-width="1"/>
+<line x1="412" y1="134" x2="455" y2="134" stroke="#617082" stroke-width="1"/>
+<line x1="451" y1="131" x2="455" y2="134" stroke="#617082" stroke-width="1"/>
+<line x1="451" y1="137" x2="455" y2="134" stroke="#617082" stroke-width="1"/>
+<text x="28" y="184.191" font-family="Arial,Helvetica,sans-serif" font-size="10.1" fill="#617082" font-weight="400" text-anchor="start">Reference-derived normalization and crop remain fixed. Full regional reference grid retains missed voxels.</text>
+<text x="24" y="245.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">b</text>
+<text x="47" y="244.102" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Foreground overlap on the complete regional reference grid</text>
+<line x1="137" y1="288" x2="137" y2="445" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="137" y="458.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.0</text>
+<line x1="230" y1="288" x2="230" y2="445" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="230" y="458.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.2</text>
+<line x1="323" y1="288" x2="323" y2="445" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="323" y="458.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.4</text>
+<line x1="416" y1="288" x2="416" y2="445" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="416" y="458.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.6</text>
+<line x1="509" y1="288" x2="509" y2="445" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="509" y="458.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.8</text>
+<line x1="602" y1="288" x2="602" y2="445" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="602" y="458.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">1.0</text>
+<text x="30" y="310.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="start">Dice</text>
+<rect x="137" y="294" width="397.37311350908783" height="28" fill="#287EAB" stroke="none" stroke-width="0.6"/>
+<text x="543.3731135090878" y="310.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="start">0.855</text>
+<text x="30" y="358.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="start">Recall</text>
+<rect x="137" y="342" width="408.0933695719675" height="28" fill="#C59530" stroke="none" stroke-width="0.6"/>
+<text x="554.0933695719675" y="358.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="start">0.878</text>
+<text x="30" y="406.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="400" text-anchor="start">Precision</text>
+<rect x="137" y="390" width="387.87941135179676" height="28" fill="#398C78" stroke="none" stroke-width="0.6"/>
+<text x="533.8794113517968" y="406.283" font-family="Arial,Helvetica,sans-serif" font-size="11.3" fill="#253341" font-weight="700" text-anchor="start">0.834</text>
+<text x="369.5" y="483.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#617082" font-weight="400" text-anchor="middle">Patient-mean foreground metric</text>
+<text x="24" y="550.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">c</text>
+<text x="47" y="549.102" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Identity and absent-class endpoints on the native reference grid</text>
+<line x1="253" y1="590" x2="253" y2="692" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="253" y="707.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.0</text>
+<line x1="323" y1="590" x2="323" y2="692" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="323" y="707.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.2</text>
+<line x1="393" y1="590" x2="393" y2="692" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="393" y="707.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.4</text>
+<line x1="463" y1="590" x2="463" y2="692" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="463" y="707.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.6</text>
+<line x1="533" y1="590" x2="533" y2="692" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="533" y="707.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">0.8</text>
+<line x1="603" y1="590" x2="603" y2="692" stroke="#D9E1E8" stroke-width="0.6"/>
+<text x="603" y="707.827" font-family="Arial,Helvetica,sans-serif" font-size="9.7" fill="#617082" font-weight="400" text-anchor="middle">1.0</text>
+<text x="29" y="616.01" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#253341" font-weight="700" text-anchor="start">Identity macro Dice</text>
+<line x1="475.27152331047307" y1="614" x2="492.41500656382334" y2="614" stroke="#287EAB" stroke-width="1.5"/>
+<line x1="475.27152331047307" y1="610" x2="475.27152331047307" y2="618" stroke="#287EAB" stroke-width="1"/>
+<line x1="492.41500656382334" y1="610" x2="492.41500656382334" y2="618" stroke="#287EAB" stroke-width="1"/>
+<circle cx="483.82887387390406" cy="614" r="3.4" fill="#287EAB"/>
+<text x="29" y="633.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#617082" font-weight="400" text-anchor="start">0.660 [0.635, 0.684]</text>
+<text x="29" y="670.01" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#253341" font-weight="700" text-anchor="start">Absent-class FPR</text>
+<line x1="253" y1="668" x2="288" y2="668" stroke="#B83B50" stroke-width="1.5"/>
+<line x1="253" y1="664" x2="253" y2="672" stroke="#B83B50" stroke-width="1"/>
+<line x1="288" y1="664" x2="288" y2="672" stroke="#B83B50" stroke-width="1"/>
+<circle cx="267.5833333333333" cy="668" r="3.4" fill="#B83B50"/>
+<text x="29" y="687.282" font-family="Arial,Helvetica,sans-serif" font-size="10.2" fill="#617082" font-weight="400" text-anchor="start">0.042 [0.000, 0.100]</text>
+<text x="431" y="737.918" font-family="Arial,Helvetica,sans-serif" font-size="9.8" fill="#617082" font-weight="400" text-anchor="middle">Patient mean and exploratory 95% interval</text>
+<text x="24" y="800.65" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#253341" font-weight="700" text-anchor="start">d</text>
+<text x="47" y="799.102" font-family="Arial,Helvetica,sans-serif" font-size="12.2" fill="#253341" font-weight="700" text-anchor="start">Branch support and evaluation scope</text>
+<text x="31" y="818.1" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#617082" font-weight="400" text-anchor="start">221 reference-positive branch–scan pairs across 20 patients</text>
+<text x="31" y="840.737" font-family="Arial,Helvetica,sans-serif" font-size="10.7" fill="#253341" font-weight="400" text-anchor="start">Branch–scan pairs with no foreground overlap</text>
+<text x="631" y="843.47" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#C59530" font-weight="700" text-anchor="end">1</text>
+<line x1="30" y1="861" x2="650.3333333333334" y2="861" stroke="#D9E1E8" stroke-width="0.8"/>
+<text x="31" y="887.737" font-family="Arial,Helvetica,sans-serif" font-size="10.7" fill="#253341" font-weight="400" text-anchor="start">Branch–scan pairs with no correctly named point</text>
+<text x="631" y="890.47" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B83B50" font-weight="700" text-anchor="end">24</text>
+<text x="28" y="934.918" font-family="Arial,Helvetica,sans-serif" font-size="9.8" fill="#617082" font-weight="400" text-anchor="start">40 forward passes, zero fits. Reference ROI and normalization condition this sensitivity analysis.</text>
+<text x="28" y="953.918" font-family="Arial,Helvetica,sans-serif" font-size="9.8" fill="#617082" font-weight="400" text-anchor="start">Full-FOV image-only deployment requires a separately fixed input pipeline.</text>
+<text x="24" y="1000.8376666666667" font-family="Arial,Helvetica,sans-serif" font-size="8.1" fill="#617082" font-weight="400" text-anchor="start">Supplementary Figure 8</text>
+<text x="180" y="1000.8376666666667" font-family="Arial,Helvetica,sans-serif" font-size="8.1" fill="#617082" font-weight="400" text-anchor="start">Reference-ROI dense sensitivity on Lausanne DEV</text></svg>

@@ -37,7 +37,9 @@ def resolve_assets(mapping_path):
 
 
 def verify(assets=None):
-    manifest=ROOT/'manifests/public_files_v1.json'
+    candidates=(ROOT/'manifests/public_files_v2_20261101.json',
+                ROOT/'manifests/public_files_v1.json')
+    manifest=next((path for path in candidates if path.is_file()), candidates[-1])
     if not manifest.is_file():
         # Installed wheels need not carry the enclosing source distribution.
         bundle=dict(available=False,note='Run from unpacked source release for full bundle byte verification')
@@ -47,7 +49,8 @@ def verify(assets=None):
             p=ROOT/row['path']
             if not p.is_file() or p.stat().st_size!=row['bytes'] or digest(p)!=row['sha256']:
                 errors.append(row['path'])
-        bundle=dict(available=True,qualified=not errors,checked_files=len(doc['files']),mismatches=errors)
+        bundle=dict(available=True,qualified=not errors,checked_files=len(doc['files']),
+                    mismatches=errors,manifest=manifest.name)
     asset_result=dict(supplied=False)
     if assets:
         paths=resolve_assets(assets); errors=[]; checked=[]

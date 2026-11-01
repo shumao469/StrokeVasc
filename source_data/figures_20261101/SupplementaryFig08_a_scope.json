@@ -1,0 +1,15 @@
+{
+  "patients": 20,
+  "reference": "native released regional annotation grid",
+  "decoder_resolution": [
+    96,
+    96,
+    96
+  ],
+  "input_ROI": "reference mask derived",
+  "normalization": "reference foreground derived",
+  "read_original_images": false,
+  "forwards": 40,
+  "fits": 0,
+  "AUTO_B": "NOT_ADMITTED"
+}
