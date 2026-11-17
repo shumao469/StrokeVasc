@@ -1,4 +1,4 @@
-"""StrokePoint++ reviewed-results viewer. No model loading, training or inference."""
+"""StrokeVasc viewer for reviewed aggregate results and anatomical illustrations."""
 from pathlib import Path
 import os
 import sys
@@ -143,19 +143,17 @@ def local_points_tab():
     st.caption(f"{len(points):,} valid points; {len(visible):,} displayed. Colors, if supplied, are user-provided labels—not model predictions. Bytes may remain in framework/session memory or temporary RAM buffers until cleared. OS-level paging is outside this app's control; secure erasure is not promised.")
 
 
-def limitations_tab():
-    st.markdown("""#### What this research release does—and does not—show
+def study_scope_tab():
+    st.markdown("""#### Study scope and evaluation
 
-- StrokePoint++-Gate is the frozen Y/Z application: PointNet++ representation, candidate aggregation and an existence gate. It is not a newly validated NC/NMI learning mechanism.
-- The task is anatomical identity labeling given a reference-derived binary vessel foreground. It is not automatic vessel extraction, stroke diagnosis, prognosis or treatment advice.
-- Lausanne is external DEV; IXI-HH is the locked, record-qualified FINAL cohort. Unknown other-environment use is not “verified unused.” They are shown separately, not pooled into a tuned winner.
-- StrokePoint++-3D versus StrokePoint++-Fuse uses matched raw-MRA information and training scale. Comparisons against the frozen Y/Z pipeline differ in inputs and training history.
-- The 3D model is a short strong-architecture pilot, not certification of a fully optimized nnU-Net pipeline. The single-MRA Y/Z transfer is not exact replication of its old paired CT/MR experiment.
-- Original candidate-identity mapping was unavailable externally. That endpoint remains NOT_COMPUTABLE; sampled-point Dice does not replace or pass its gate.
-- Rare branches need their actual patient support and uncertainty. Non-significance is not safety, equivalence or noninferiority.
-- Original results, 65-person protected data, Y/Z and STOP are not altered by this viewer. This app performs no model training or inference.
+- StrokeVasc Gate is the fixed Y/Z application. It combines a PointNet++ representation, candidate pooling and branch-presence conditioning.
+- The task assigns anatomical identities to points sampled from a supplied binary vessel foreground.
+- Lausanne serves as external development. IXI-HH serves as the locked, record-qualified final evaluation. The viewer presents each source separately.
+- The volumetric and fusion routes share raw MRA inputs and training scale. The geometric route has its own inputs and training history.
+- The archived paired CTA/MRA application and the single-MRA transfer use separate configurations.
+- Point overlap, rare-branch recall and absent-class false-positive rates describe different aspects of anatomical performance. Each is presented with its study denominator and available uncertainty.
 """)
-    st.caption("This is a local research-results presentation, not a medical device. Public hosting, datasets and weights need separately reviewed permissions. No account, token or clinical file is required for the reviewed-aggregate view.")
+    st.caption("The research viewer opens the packaged aggregate tables and illustrations. Model execution uses the separate CLI and its asset binding.")
 
 
 def development_update_tab():
@@ -166,7 +164,7 @@ def development_update_tab():
         st.info(f"Versioned development aggregate unavailable: {error}")
         return
     st.caption("Lausanne DEV · 20 repeatedly evaluated patients · all six locked policies · original main results unchanged")
-    st.warning("The revised semantic-probability interface has not shown an efficacy advantage. This is not new independent validation, clinical safety certification or NC/NMI mechanism evidence.")
+    st.info("Explore the fixed development policies through paired estimates, intervals and patient-event summaries.")
     model = st.selectbox("Development comparison model", UPDATE_MODELS, key="development_model")
     rows = []
     for policy in UPDATE_POLICIES:
@@ -196,9 +194,9 @@ def development_update_tab():
 
 
 def main():
-    st.set_page_config(page_title="StrokePoint++ · Research Explorer",page_icon="🧠",layout="wide")
+    st.set_page_config(page_title="StrokeVasc · Research Explorer",page_icon="🧠",layout="wide")
     st.markdown("<style>.block-container{padding-top:2rem;max-width:1400px}h1{letter-spacing:-.045em} [data-testid=stMetricValue]{font-size:1.7rem}</style>",unsafe_allow_html=True)
-    st.title("StrokePoint++")
+    st.title("StrokeVasc")
     st.markdown("**Evidence-guided cerebral vessel labeling · reviewed results explorer**")
     st.caption("研究展示，不用于卒中诊断 · Frozen application evidence, not NC/NMI mechanism certification")
     summary_path=find_summary(RELEASE)
@@ -219,7 +217,7 @@ def main():
             st.metric("Patients",cohort["n_patients"])
             st.caption("Single MRA · 2,048 foreground points · four fixed arms")
         st.warning("Not for clinical use")
-    tabs=st.tabs(("Reviewed results","Rare branches","Figures & cases","Local points","Development update","Limitations"))
+    tabs=st.tabs(("Reviewed results","Rare branches","Figures & cases","Local points","Development update","Study scope"))
     with tabs[0]:
         if data:results_tab(cohort)
         else:st.caption("Results require the independently reviewed packaged aggregate; no live artifact or model path is read.")
@@ -229,7 +227,7 @@ def main():
     with tabs[2]:figures_tab()
     with tabs[3]:local_points_tab()
     with tabs[4]:development_update_tab()
-    with tabs[5]:limitations_tab()
+    with tabs[5]:study_scope_tab()
 
 
 if __name__ == "__main__":

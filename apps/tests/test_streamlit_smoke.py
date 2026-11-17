@@ -15,7 +15,7 @@ class StreamlitSmokeTests(unittest.TestCase):
         with patch.dict(os.environ,{"STROKEPOINT_ENABLE_LOCAL_UPLOAD":"0"}):
             app=AppTest.from_file(str(APP)).run(timeout=40)
             self.assertEqual(len(app.exception),0)
-            self.assertEqual(app.title[0].value,"StrokePoint++")
+            self.assertEqual(app.title[0].value,"StrokeVasc")
             self.assertEqual(len(app.tabs),6)
             self.assertEqual(app.tabs[4].label,"Development update")
             self.assertTrue(any("Reviewed development update" in item.value for item in app.markdown))

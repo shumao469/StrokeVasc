@@ -1,0 +1,37 @@
+{
+  "id": "StrokeVasc matched-boundary Pcom topology illustration v1",
+  "claim_boundary": "Synthetic, zero-fit engineering illustration. This is not clinical evidence or a new decision gate. D1 and D2 frozen outcomes remain unchanged. No calibration estimates, images, participant records, or protected-set assets are read. No training or prediction inference on patients.",
+  "parent_protocols": [
+    {"path": "../../protocol_freeze_v1.json", "sha256": "0d11a66b1c0ff3d169b04b78b444be4075bbf32b5e325495d6a4995063e4c911"},
+    {"path": "../../identifiability_v2/protocol_freeze_v1.json", "sha256": "a7fdda60ec36941db6a0df2fc360b4970565a3e0ddd13304518654609e1ac92e"}
+  ],
+  "graph": {
+    "nodes": ["left anterior", "right anterior", "posterior"],
+    "topology_states": [[0,0],[0,1],[1,0],[1,1]],
+    "state_order": "left Pcom open, right Pcom open",
+    "active_Pcom_conductance": 0.09,
+    "feed_resistance": [4.0, 5.0, 4.5],
+    "distal_resistance_ranges": [[7,9],[8,11],[8,12]],
+    "venous_pressure_reference": 0,
+    "central_pressure_range": [56,64],
+    "asymmetric_right_inlet_pressure_decrement": [16,24],
+    "held_out_observation_noise_sd": 0.25,
+    "note": "Shared per-case prescribed pressure sources and outlet/feed resistances in all arms. Pressure-source adjustments exactly equalize unbridged nodal pressures in balanced regime. A patent bridge has one frozen conductance. There is no readout from CTP, and terminal flow uses synthetic units."
+  },
+  "design": {
+    "seed": 406121,
+    "test_cases_per_regime": 1024,
+    "regimes": [
+      {"name": "asymmetric_matched", "asymmetric": true, "truth_open_prob_given_binary_cue": [0.30,0.70], "input_open_prob_given_binary_cue": [0.30,0.70]},
+      {"name": "balanced_matched", "asymmetric": false, "truth_open_prob_given_binary_cue": [0.30,0.70], "input_open_prob_given_binary_cue": [0.30,0.70]},
+      {"name": "asymmetric_underconfident_stress", "asymmetric": true, "truth_open_prob_given_binary_cue": [0.06,0.94], "input_open_prob_given_binary_cue": [0.35,0.65]}
+    ],
+    "sampling": "One NumPy PCG64 stream, independent regimes in listed order; independently sampled per-side binary cues with equal prior frequencies at upstream time. Given cues, independently sample the true two Pcom states; generate held-out synthetic measurement from that circuit plus independent Gaussian noise. True state/measurement never enter prediction. The matched experiment deliberately gives the ensemble exact population probabilities; the underconfidence stress deliberately supplies a weaker probability contrast while retaining cue ordering.",
+    "comparator_note": "Three arms share an identical numerical solver and measurement-noise distribution, and the same pressure, distal resistances, and feed resistances for each case. Deterministic arms use a single Normal predictive component; candidate arm uses a normalized mixture. Same information for MAP and mixture. Fixed template is the predeclared assumption of both Pcoms open. MAP is only a synthetic analog of the single-topology interface, not a Strong3D inference or score."
+  },
+  "evaluation": {
+    "primary": "Case mean marginal CRPS across three terminal-flow observations, equally weighting cases. Also report MAE of predictive mean and mean 90% marginal interval width and coverage. Paired case bootstrap with 2000 resamples (seed 740621), descriptive percentile 95% intervals against MAP and fixed in each regime. Compare both flow-disagreement across states and predictive scores; do not equate marginal CRPS with multivariate dependence accuracy.",
+    "checks": "Finite positive outlet flows, absolute mass imbalance <1e-10, posterior weights sum to one within 1e-12, balanced physical prediction parity <1e-10 and resulting scores equal, univariate Gaussian CRPS identity at y=mu within 1e-12. Do not tune after seeing scores.",
+    "resource": {"cpu_seconds_upper": 300, "patient_reads": 0, "new_fits": 0}
+  }
+}

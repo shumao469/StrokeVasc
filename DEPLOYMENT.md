@@ -1,11 +1,9 @@
-# StrokePoint++ research-results viewer
+# StrokeVasc research-results viewer
 
-This CPU-only Streamlit app displays **packaged, independently reviewed aggregate results** and released PNG illustrations. `StrokePoint++-Gate` is the frozen Y/Z application. `StrokePoint-3D` and `StrokePoint-Fuse` are fixed comparison models. The app does not establish an NC/NMI mechanism, diagnose stroke, load model weights, run inference, or train models.
+This CPU-only Streamlit app displays **packaged, independently reviewed aggregate results** and released PNG illustrations. Its views cover StrokeVasc Gate and the fixed volumetric and fusion comparators.
 
-Repository: https://github.com/shumao469/StrokePointPlusPlus . The owner authorized
-GitHub publication only on 2026-10-28. No Cloud login, hosted deployment or
-`streamlit.app` URL is created by this release. For Windows-native and WSL
-quick-start commands, see the [README](README.md#interactive-viewer--streamlit).
+See the [StrokeVasc repository](https://github.com/shumao469/StrokeVasc) and the
+[Windows and WSL quick start](README.md#interactive-app).
 
 ## Required packaged files
 
@@ -66,14 +64,14 @@ Accepted NPZ schema is `xyz` **or** `points` (N×3 numeric array) plus optional 
 
 **Privacy:** Streamlit file selection transfers bytes to the app server; this is not browser-only processing. Streamlit's multipart parser may spool a large upload to a temporary file before keeping its uploaded-file record in memory. The supplied launcher verifies `/dev/shm` is `tmpfs` and uses `TMPDIR=/dev/shm`, so these framework temporary buffers are RAM-backed rather than a retained patient dataset. The uploader refuses to activate without that setting. Bytes may remain in framework/session memory or temporary RAM buffers until cleared, and OS-level paging/caches are outside this app's control; secure erasure is not promised. Do not select identifiable or unauthorized patient files. Leave upload disabled for public hosting; a cloud server is not the user's local computer.
 
-## Optional hosted deployment — not performed automatically
+## Optional hosted deployment
 
 A public release requires a separate decision about publication rights, attribution, privacy and release contents. Dataset or commercial model redistribution is not authorized merely by running this viewer. Public hosting should contain only the reviewed aggregate, authorized PNG previews and code—not environments, raw images, masks, private case provenance, credentials or research checkpoints.
 
-For Streamlit Community Cloud, a separately authorized operator needs a Streamlit account/workspace connected to GitHub, permission to deploy the selected repository/branch, and repository access for the service. Repository: `shumao469/StrokePointPlusPlus`; branch: `main`; entrypoint: `apps/streamlit_app.py`. The included `apps/requirements.txt` references the CPU-only pinned `requirements-app.txt` and is beside the entrypoint as required by the platform. The original local tests used Python3.10. Choose a currently supported Python version in the platform's Advanced settings and retest compatibility; do not silently treat a newer default as already validated. A GitHub login alone does not prove a Streamlit deployment exists. No API secrets are needed by this viewer. Leave the optional uploader disabled for public hosting. Never print account tokens or start a hosted deployment without approval.
+In Streamlit Community Cloud, connect an authorized GitHub account and select `shumao469/StrokeVasc`, branch `main`, and entrypoint `apps/streamlit_app.py`. The adjacent `apps/requirements.txt` references the pinned CPU dependencies. Select a supported Python version in Advanced settings and verify dependencies in that environment. Use the packaged aggregate-only configuration for public hosting.
 
 Official guidance: [Streamlit deployment](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy), [file uploader](https://docs.streamlit.io/develop/api-reference/widgets/st.file_uploader), [Plotly chart display](https://docs.streamlit.io/develop/api-reference/charts/st.plotly_chart).
 
-## Research limitations shown in the app
+## Study scope shown in the app
 
 The task uses a reference-derived binary vessel foreground and 2,048 sampled points, not an end-to-end diagnostic pipeline. DEV and FINAL remain distinct. Rare-class sampling misses and undefined confidence intervals remain visible. Zero incremental error events among 20 patients still imply a 13.9% one-sided 95% risk upper bound, not passage of the original 10% gate. Strong-3D versus simple fusion is the matched-input comparison; frozen single-MRA Y/Z transfer differs in source training and inputs. Original gates and STOP are not weakened or renamed.

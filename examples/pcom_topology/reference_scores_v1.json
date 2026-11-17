@@ -1,0 +1,132 @@
+{
+  "protocol_sha256": "a20c6faa098e440616beba4182b97706b174a8495f0f9b42cb1df3b2e9e7d7b9",
+  "case_count": 3072,
+  "results": {
+    "asymmetric_matched": {
+      "cases": 1024,
+      "mean_topology_flow_range": 0.1829926838021899,
+      "max_topology_flow_range": 0.3376893705841697,
+      "max_abs_mass_residual": 1.1546319456101628E-14,
+      "scores": {
+        "fixed_bilateral_open_template": {
+          "case_mean_CRPS": 0.16265532669599955,
+          "mean_absolute_error_predictive_mean": 0.22707883213958802,
+          "mean_90pct_marginal_interval_coverage": 0.8492838541666666,
+          "mean_90pct_marginal_interval_width": 0.8224268134757358
+        },
+        "single_MAP_proxy": {
+          "case_mean_CRPS": 0.15392714073175712,
+          "mean_absolute_error_predictive_mean": 0.2168435847560214,
+          "mean_90pct_marginal_interval_coverage": 0.8639322916666666,
+          "mean_90pct_marginal_interval_width": 0.8224268134757358
+        },
+        "weighted_candidate_topologies": {
+          "case_mean_CRPS": 0.15033596013887013,
+          "mean_absolute_error_predictive_mean": 0.2123711495722298,
+          "mean_90pct_marginal_interval_coverage": 0.9020182291666666,
+          "mean_90pct_marginal_interval_width": 0.875407663293479
+        }
+      },
+      "comparisons": {
+        "candidates_minus_single_MAP_proxy": {
+          "paired_CRPS_difference": -0.0035911805928870097,
+          "descriptive_95pct_case_bootstrap_interval": [
+            -0.004998716251535649,
+            -0.0022473959554840913
+          ]
+        },
+        "candidates_minus_fixed_bilateral_open_template": {
+          "paired_CRPS_difference": -0.012319366557129435,
+          "descriptive_95pct_case_bootstrap_interval": [
+            -0.014779094751335146,
+            -0.009812258693629587
+          ]
+        }
+      }
+    },
+    "balanced_matched": {
+      "cases": 1024,
+      "mean_topology_flow_range": 7.366792361314841E-16,
+      "max_topology_flow_range": 3.552713678800501E-15,
+      "max_abs_mass_residual": 1.2434497875801753E-14,
+      "scores": {
+        "fixed_bilateral_open_template": {
+          "case_mean_CRPS": 0.1415161582683268,
+          "mean_absolute_error_predictive_mean": 0.20099173895193453,
+          "mean_90pct_marginal_interval_coverage": 0.9010416666666666,
+          "mean_90pct_marginal_interval_width": 0.8224268134757476
+        },
+        "single_MAP_proxy": {
+          "case_mean_CRPS": 0.14151615826832678,
+          "mean_absolute_error_predictive_mean": 0.20099173895193456,
+          "mean_90pct_marginal_interval_coverage": 0.9010416666666666,
+          "mean_90pct_marginal_interval_width": 0.8224268134757476
+        },
+        "weighted_candidate_topologies": {
+          "case_mean_CRPS": 0.1415161582683268,
+          "mean_absolute_error_predictive_mean": 0.20099173895193456,
+          "mean_90pct_marginal_interval_coverage": 0.9010416666666666,
+          "mean_90pct_marginal_interval_width": 0.8224268134757476
+        }
+      },
+      "comparisons": {
+        "candidates_minus_single_MAP_proxy": {
+          "paired_CRPS_difference": 8.131516293641283E-18,
+          "descriptive_95pct_case_bootstrap_interval": [
+            2.2766551556301086E-18,
+            1.4097846967511108E-17
+          ]
+        },
+        "candidates_minus_fixed_bilateral_open_template": {
+          "paired_CRPS_difference": 9.439335164201923E-18,
+          "descriptive_95pct_case_bootstrap_interval": [
+            -8.080694316806024E-19,
+            1.9787706087397156E-17
+          ]
+        }
+      }
+    },
+    "asymmetric_underconfident_stress": {
+      "cases": 1024,
+      "mean_topology_flow_range": 0.18352973616190815,
+      "max_topology_flow_range": 0.33844514727733976,
+      "max_abs_mass_residual": 1.1546319456101628E-14,
+      "scores": {
+        "fixed_bilateral_open_template": {
+          "case_mean_CRPS": 0.1637983518099866,
+          "mean_absolute_error_predictive_mean": 0.2310278938793947,
+          "mean_90pct_marginal_interval_coverage": 0.8453776041666666,
+          "mean_90pct_marginal_interval_width": 0.8224268134757357
+        },
+        "single_MAP_proxy": {
+          "case_mean_CRPS": 0.1459256897699231,
+          "mean_absolute_error_predictive_mean": 0.20708867434485048,
+          "mean_90pct_marginal_interval_coverage": 0.8857421875,
+          "mean_90pct_marginal_interval_width": 0.8224268134757357
+        },
+        "weighted_candidate_topologies": {
+          "case_mean_CRPS": 0.14946059340815127,
+          "mean_absolute_error_predictive_mean": 0.21165421323889885,
+          "mean_90pct_marginal_interval_coverage": 0.9033203125,
+          "mean_90pct_marginal_interval_width": 0.8797881348165237
+        }
+      },
+      "comparisons": {
+        "candidates_minus_single_MAP_proxy": {
+          "paired_CRPS_difference": 0.0035349036382281993,
+          "descriptive_95pct_case_bootstrap_interval": [
+            0.0021333561085742636,
+            0.004974412196256589
+          ]
+        },
+        "candidates_minus_fixed_bilateral_open_template": {
+          "paired_CRPS_difference": -0.014337758401835324,
+          "descriptive_95pct_case_bootstrap_interval": [
+            -0.016752693877621322,
+            -0.01199540690528339
+          ]
+        }
+      }
+    }
+  }
+}

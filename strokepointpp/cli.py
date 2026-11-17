@@ -37,7 +37,8 @@ def resolve_assets(mapping_path):
 
 
 def verify(assets=None):
-    candidates=(ROOT/'manifests/public_files_v2_20261101.json',
+    candidates=(ROOT/'manifests/public_files_v3_20261117.json',
+                ROOT/'manifests/public_files_v2_20261101.json',
                 ROOT/'manifests/public_files_v1.json')
     manifest=next((path for path in candidates if path.is_file()), candidates[-1])
     if not manifest.is_file():
@@ -66,7 +67,7 @@ def verify(assets=None):
 
 
 def main(argv=None):
-    p=argparse.ArgumentParser(prog='strokepointpp',description='StrokePoint++ research-only reproducibility toolbox')
+    p=argparse.ArgumentParser(prog='strokepointpp',description='StrokeVasc cerebral artery labelling and reproducibility toolbox')
     sub=p.add_subparsers(dest='command',required=True)
     sub.add_parser('inspect'); sub.add_parser('summary')
     v=sub.add_parser('verify'); v.add_argument('--assets')

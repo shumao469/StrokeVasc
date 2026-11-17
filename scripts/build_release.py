@@ -144,6 +144,9 @@ EXPLICIT_PUBLIC = {
  'deployment/start_local.ps1',
  'apps/app_core.py','apps/streamlit_app.py','apps/requirements.txt',
  'apps/tests/test_app_core.py','apps/tests/test_streamlit_smoke.py',
+ 'examples/pcom_topology/run_matched_boundaries_v1.py',
+ 'examples/pcom_topology/protocol_freeze_v1.json',
+ 'examples/pcom_topology/reference_scores_v1.json',
  'scripts/build_release.py','scripts/make_publication_figures.py',
  'scripts/render_real_cases.py','scripts/render_grouping.py','scripts/render_input_points.py',
  'docs/FIGURE_PLAN.md','docs/MANUSCRIPT_FIGURE_OUTLINE.md','docs/RELEASE_QA.md',
@@ -161,12 +164,18 @@ def _public_candidates():
  # Exact top-level files plus narrow, named artifact families. Never traverse
  # private_build/private_archive/env/cache/log/runtime/test-run/dist directories.
  paths={ROOT/p for p in EXPLICIT_PUBLIC if (ROOT/p).is_file()}
+ # This builder writes a fresh manifest for its own ZIP layout.
+ source_manifests={
+  'manifests/public_files_v1.json',
+  'manifests/public_files_v2_20261101.json',
+  'manifests/public_files_v3_20261117.json',
+ }
  for folder in ('strokepointpp','archive/algorithms','configs','results/aggregate','manifests','tests'):
   base=ROOT/folder
   for path in base.rglob('*') if base.is_dir() else []:
    rel=path.relative_to(ROOT)
    if (path.is_file() and '__pycache__' not in rel.parts and path.suffix in TEXT_SUFFIXES
-       and rel.as_posix()!='manifests/public_files_v1.json'):
+       and rel.as_posix() not in source_manifests):
     paths.add(path)
  for suffix in ('*.png','*.svg'):
   paths.update(path for path in (ROOT/'assets').glob(suffix) if path.is_file())

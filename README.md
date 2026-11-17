@@ -7,6 +7,7 @@
   <a href="#interactive-app">Interactive app</a> ·
   <a href="#online-deployment">Online deployment</a> ·
   <a href="#model-inference">Model inference</a> ·
+  <a href="#synthetic-pcom-topology-benchmark">Pcom topology benchmark</a> ·
   <a href="#repository-guide">Repository guide</a>
 </p>
 
@@ -20,9 +21,8 @@ and regularized presence classifiers to assign anatomical identities within a
 supplied binary vessel foreground. A Streamlit explorer brings model comparisons,
 branch-level summaries and three-dimensional visual inspection into one interface.
 
-The repository is named **StrokePointPlusPlus**, and its Python package is
-`strokepointpp`. The app retains **StrokePoint++** component labels for compatibility
-with the saved configurations and model assets.
+The Python package and command-line interface use `strokepointpp`, which
+preserves compatibility with saved configurations and model assets.
 
 **Research focus:** cerebral arterial identity labelling, anatomical variation
 and reproducible vascular-image analysis.
@@ -68,8 +68,8 @@ downstream research applications with their own validation requirements.
 ### 1. Get the repository
 
 ```bash
-git clone https://github.com/shumao469/StrokePointPlusPlus.git
-cd StrokePointPlusPlus
+git clone https://github.com/shumao469/StrokeVasc.git
+cd StrokeVasc
 ```
 
 ### 2. Inspect the package
@@ -122,7 +122,7 @@ as `8852`, when running a second local instance.
 | **Figures & cases** | Browse the illustration assets packaged with the selected release. |
 | **Local points** | Visualize an operator-enabled, authorized local NPZ point cloud with optional supplied labels. |
 | **Development update** | Explore separately versioned model/policy comparisons and dense-grid summaries. |
-| **Limitations** | Read the study scope, endpoint definitions and validation context. |
+| **Study scope** | Read the study populations, endpoint definitions and evaluation design. |
 
 The optional local viewer accepts `xyz` or `points` with shape `N x 3` and optional
 integer `labels` with shape `N`. Its local-session setup, privacy controls and
@@ -139,7 +139,7 @@ Deploy your own viewer from this repository through
 
 | Deployment setting | Value |
 | --- | --- |
-| Repository | `shumao469/StrokePointPlusPlus` |
+| Repository | `shumao469/StrokeVasc` |
 | Branch | `main` |
 | Main file path | `apps/streamlit_app.py` |
 | Python version | `3.12` |
@@ -152,8 +152,8 @@ Streamlit supplies the app's shareable `.streamlit.app` address. The repository
 provides the deployment configuration; Community Cloud creates the hosted URL
 for your deployment.
 
-For public hosting, use the packaged viewer configuration with local uploads
-disabled. Keep research data and authorized model assets in the appropriate
+For public hosting, use the packaged aggregate-only viewer configuration.
+Keep research data and authorized model assets in the appropriate
 private environment. See the [official deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy)
 and the [project deployment reference](DEPLOYMENT.md).
 
@@ -222,10 +222,33 @@ and `gd / 120`, with a value of `1` for its unreachable-distance feature. The
 saved route builds coarse-to-fine interpolation from the three smallest finite
 native path distances, deterministic index ties and inverse-distance weights.
 
+## Synthetic Pcom topology benchmark
+
+This CPU example explores when alternative connections of the posterior
+communicating arteries (Pcoms) change regional flow predictions. A fixed
+template, a single maximum-posterior topology and a weighted set of four
+bilateral configurations share a three-node resistance network and the same
+boundary conditions. The benchmark generates 3,072 synthetic cases across
+three pressure and probability scenarios for reproducible studies of anatomical
+uncertainty in stroke digital twins.
+
+```bash
+python -m pip install -e ".[topology]"
+python examples/pcom_topology/run_matched_boundaries_v1.py --output pcom_scores.json
+```
+
+The runner writes continuous ranked probability scores (CRPS), point-prediction
+errors, interval coverage and width, and paired bootstrap comparisons. The
+[frozen protocol](examples/pcom_topology/protocol_freeze_v1.json) defines the
+case generator and shared inputs. The
+[reference scores](examples/pcom_topology/reference_scores_v1.json) record
+results for all three scenarios.
+
 ## Repository guide
 
 ```text
 apps/                   Streamlit explorer and viewer tests
+examples/pcom_topology/  Synthetic resistance-network benchmark and reference scores
 strokepointpp/          Installable CLI and model interfaces
 strokepointpp/_frozen/  Preserved numerical implementations
 configs/                Fixed recipes and the local asset-map example
@@ -245,7 +268,7 @@ tests/                  Data-independent numerical and interface tests
 | --- | --- | --- |
 | Python standard library | CLI, manifests and SHA256 verification | Core package |
 | Streamlit and Plotly | Interactive dashboard and 3D visualization | App |
-| NumPy and SciPy | Arrays, geometry, interpolation and numerical summaries | App / inference |
+| NumPy and SciPy | Arrays, geometry, interpolation and synthetic flow scoring | App / inference / topology example |
 | PyTorch | Point and volumetric encoders | Inference |
 | dynamic-network-architectures | `PlainConvUNet` architecture | Spatial inference |
 | scikit-learn | Standardization and logistic presence classifiers | Inference / research reproduction |
@@ -289,5 +312,5 @@ contact the project owner to arrange the applicable license. Dependencies retain
 their upstream licenses, and model/data access follows the respective authorization.
 
 Questions and reproducibility reports are welcome through
-[GitHub Issues](https://github.com/shumao469/StrokePointPlusPlus/issues).
+[GitHub Issues](https://github.com/shumao469/StrokeVasc/issues).
 
